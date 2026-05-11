@@ -92,6 +92,75 @@ body::before {
   color: var(--ink);
 }
 
+@keyframes wave {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.hero-highlight {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.12em;
+}
+
+.hero-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 14% -2px 18%;
+  z-index: -1;
+  border-radius: 6px;
+  background: var(--accent);
+  transform: rotate(-1deg);
+}
+
+.hero-scribble {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw-scribble 1.2s cubic-bezier(0.6, 0.1, 0.2, 1) 0.55s forwards;
+}
+
+@keyframes draw-scribble {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @layer utilities {
   .paper-panel {
     background: color-mix(in oklab, var(--paper-3) 80%, transparent);
