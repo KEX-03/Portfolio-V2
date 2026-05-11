@@ -48,15 +48,13 @@ export function Navbar() {
                 <a
                   href={item.href}
                   className={cn(
-                    "relative rounded-[10px] px-3.5 py-2 font-sans text-sm font-medium text-ink-2 transition-colors duration-150 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep",
-                    active && "text-ink",
+                    "nav-link relative rounded-[10px] px-3.5 py-2 font-sans text-sm font-medium text-ink-2 transition-colors duration-150 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep",
+                    active && "is-active text-ink",
                   )}
                   aria-current={active ? "page" : undefined}
                 >
                   {item.label}
-                  {active ? (
-                    <span className="absolute right-3.5 bottom-1.5 left-3.5 h-0.5 rounded-sm bg-ink" aria-hidden="true" />
-                  ) : null}
+                  <span className="nav-link-underline" aria-hidden="true" />
                 </a>
               </li>
             );

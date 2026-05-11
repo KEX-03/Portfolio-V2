@@ -250,6 +250,36 @@ body::before {
   box-shadow: 0 1px 0 rgba(60, 50, 30, 0.05), 0 26px 36px -20px rgba(40, 30, 10, 0.5);
 }
 
+.nav-link-underline {
+  position: absolute;
+  right: 14px;
+  left: 14px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover .nav-link-underline,
+.nav-link.is-active .nav-link-underline {
+  transform: scaleX(1);
+}
+
+.btn-magnetic {
+  will-change: transform;
+}
+
+.btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+.btn-magnetic:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
 @layer utilities {
   .paper-panel {
     background: color-mix(in oklab, var(--paper-3) 80%, transparent);

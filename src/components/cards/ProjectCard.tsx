@@ -1,5 +1,6 @@
+import { useState, type MouseEvent } from "react";
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ProjectItem } from "@/data/projects";
 
 type ProjectCardProps = {
@@ -14,11 +15,34 @@ const variantClassMap: Record<ProjectItem["variant"], string> = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const reduceMotion = useReducedMotion();
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+
+  const handleMove = (event: MouseEvent<HTMLElement>) => {
+    if (reduceMotion) {
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+
+    setTilt({ rx: -py * 7.5, ry: px * 7.5 });
+  };
+
+  const resetTilt = () => setTilt({ rx: 0, ry: 0 });
+
   return (
     <motion.article
       whileHover={{ y: -8 }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="group rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-shadow duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)]"
+      onMouseMove={handleMove}
+      onMouseLeave={resetTilt}
+      style={{
+        transform: reduceMotion ? undefined : `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+        transformStyle: "preserve-3d",
+      }}
+      className="group rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-[box-shadow,transform] duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)]"
     >
       <div className={`relative h-[200px] overflow-hidden rounded-xl p-4 ${variantClassMap[project.variant]}`}>
         <div className="absolute left-3 top-2.5 flex gap-1.5" aria-hidden="true">
@@ -29,7 +53,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="absolute inset-0 opacity-20 [background-size:20px_20px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.18)_1px,transparent_1px)]" />
 
-        <div className="relative mt-9 transition-transform duration-300 group-hover:scale-[1.03]">
+        <div className="relative mt-9 transition-transform duration-300 group-hover:scale-[1.03] [transform:translateZ(20px)]">
           <h3 className="max-w-[78%] font-serif text-[30px] leading-[1.02] tracking-[-0.02em]">{project.headline}</h3>
           <p className="mt-1 max-w-[75%] font-mono text-[11.5px] opacity-85">{project.subline}</p>
           <span className="mt-3 inline-flex rounded-md border border-white/25 bg-white/12 px-2.5 py-1 font-mono text-[11px]">
