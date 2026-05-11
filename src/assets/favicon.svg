@@ -1,35 +1,32 @@
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="128" height="128" rx="32" fill="#F5F1EA"/>
-  
-  <!-- Grain texture effect -->
-  <filter id="noise">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-    <feBlend mode="multiply" in2="SourceGraphic"/>
-  </filter>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bgGrad" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#fdf7e9"/>
+      <stop offset="100%" stop-color="#ede5d1"/>
+    </radialGradient>
+    <radialGradient id="dotGrad" cx="38%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#9b7de8"/>
+      <stop offset="100%" stop-color="#6b52c8"/>
+    </radialGradient>
+  </defs>
 
-  <!-- Accent brush stroke -->
-  <path d="M28 82C42 74 58 72 88 76" stroke="#8B7CF6" stroke-width="12" stroke-linecap="round" opacity="0.35"/>
+  <!-- Clean rounded background -->
+  <rect width="64" height="64" rx="12" ry="12" fill="url(#bgGrad)"/>
 
-  <!-- Main initials -->
+  <!-- "vs" text vertically centered -->
   <text
-    x="50%"
-    y="54%"
-    text-anchor="middle"
-    dominant-baseline="middle"
-    fill="#111111"
-    font-family="'Playfair Display', serif"
-    font-size="56"
-    font-weight="700"
-    letter-spacing="-3"
-  >
-    VS
-  </text>
+    x="2"
+    y="32"
+    font-family="'Caveat', 'Comic Sans MS', cursive"
+    font-size="34"
+    font-style="italic"
+    font-weight="400"
+    fill="#231d11"
+    letter-spacing="-0.5"
+    dominant-baseline="central"
+  >VS</text>
 
-  <!-- Minimal handwritten accent -->
-  <path d="M92 94C96 90 100 84 102 78" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M101 78L105 79" stroke="#111111" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Subtle texture overlay -->
-  <rect width="128" height="128" rx="32" opacity="0.04" filter="url(#noise)"/>
+  <!-- Purple dot — vertically centered, close to text -->
+  <circle cx="56" cy="32" r="4.5" fill="url(#dotGrad)"/>
+  <circle cx="49.6" cy="30.6" r="1.4" fill="rgba(255,255,255,0.42)"/>
 </svg>

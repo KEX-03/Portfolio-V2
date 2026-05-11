@@ -36,7 +36,7 @@ export function Navbar() {
         )}
       >
         <a href="#home" className="inline-flex items-baseline gap-1 text-[30px] leading-none tracking-[-0.01em]">
-          <span className="font-serif italic">vr</span>
+          <span className="font-handwriting italic">VS</span>
           <span className="inline-block size-1.5 translate-y-[-2px] rounded-full bg-accent-deep" aria-hidden="true" />
         </a>
 

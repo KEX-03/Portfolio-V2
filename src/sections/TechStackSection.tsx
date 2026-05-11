@@ -1,21 +1,78 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 import { TECH_STACK } from "@/data/techStack";
 
 export function TechStackSection() {
   const loopStack = [...TECH_STACK, ...TECH_STACK];
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const track = trackRef.current;
+    if (!wrap || !track) return;
+
+    let frame = 0;
+    let last = performance.now();
+    let x = 0;
+    let speed = 0.07;
+    let targetSpeed = 0.07;
+    let halfWidth = track.scrollWidth / 2;
+
+    const measure = () => {
+      halfWidth = track.scrollWidth / 2;
+    };
+
+    const loop = (now: number) => {
+      const dt = now - last;
+      last = now;
+
+      speed += (targetSpeed - speed) * 0.08;
+      x -= speed * dt;
+
+      if (-x >= halfWidth) {
+        x += halfWidth;
+      }
+
+      track.style.transform = `translateX(${x}px)`;
+      frame = requestAnimationFrame(loop);
+    };
+
+    const enter = () => {
+      targetSpeed = 0.015;
+    };
+
+    const leave = () => {
+      targetSpeed = 0.07;
+    };
+
+    measure();
+    frame = requestAnimationFrame(loop);
+
+    wrap.addEventListener("mouseenter", enter);
+    wrap.addEventListener("mouseleave", leave);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      wrap.removeEventListener("mouseenter", enter);
+      wrap.removeEventListener("mouseleave", leave);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   return (
     <Section id="skills" aria-label="Tech stack">
       <div className="section-card relative">
-        <span className="section-braces">{'<stack />'}</span>
+        <span className="section-braces">{"<stack />"}</span>
         <div className="section-label">
           <h2>Tech I Work With</h2>
           <small>CORE STACK</small>
         </div>
 
-        <div className="tech-marquee">
-          <div className="tech-marquee-track">
+        <div ref={wrapRef} className="tech-marquee">
+          <div ref={trackRef} className="tech-marquee-track">
             {loopStack.map((tech, index) => (
               <motion.article
                 key={`${tech.name}-${index}`}
