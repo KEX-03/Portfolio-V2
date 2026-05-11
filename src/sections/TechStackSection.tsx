@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { TECH_STACK } from "@/data/techStack";
 
@@ -8,13 +7,11 @@ export function TechStackSection() {
 
   return (
     <Section id="skills" aria-label="Tech stack">
-      <div className="paper-panel rounded-[22px] px-5 py-7 sm:px-7 sm:py-8">
-        <div className="mb-5 flex items-center gap-3">
-          <span className="inline-flex size-9 items-center justify-center rounded-full border border-line bg-paper-3 text-ink">
-            <Sparkles className="size-4" aria-hidden="true" />
-          </span>
-          <h2 className="font-serif text-[clamp(1.75rem,3.3vw,2.25rem)] leading-none">Tech I Work With</h2>
-          <span className="ml-auto font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Core Stack</span>
+      <div className="section-card relative">
+        <span className="section-braces">{'<stack />'}</span>
+        <div className="section-label">
+          <h2>Tech I Work With</h2>
+          <small>CORE STACK</small>
         </div>
 
         <div className="tech-marquee">

@@ -5,7 +5,7 @@ import { FEATURED_PROJECTS } from "@/data/projects";
 export function FeaturedProjectsSection() {
   return (
     <Section id="projects" aria-label="Featured projects">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-3 sm:gap-4">
+      <div className="section-head mb-5">
         <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] leading-none tracking-[-0.01em]">Featured Projects</h2>
         <a
           href="#"

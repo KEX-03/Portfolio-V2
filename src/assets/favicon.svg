@@ -1,0 +1,35 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="32" fill="#F5F1EA"/>
+  
+  <!-- Grain texture effect -->
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend mode="multiply" in2="SourceGraphic"/>
+  </filter>
+
+  <!-- Accent brush stroke -->
+  <path d="M28 82C42 74 58 72 88 76" stroke="#8B7CF6" stroke-width="12" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Main initials -->
+  <text
+    x="50%"
+    y="54%"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="#111111"
+    font-family="'Playfair Display', serif"
+    font-size="56"
+    font-weight="700"
+    letter-spacing="-3"
+  >
+    VS
+  </text>
+
+  <!-- Minimal handwritten accent -->
+  <path d="M92 94C96 90 100 84 102 78" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M101 78L105 79" stroke="#111111" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Subtle texture overlay -->
+  <rect width="128" height="128" rx="32" opacity="0.04" filter="url(#noise)"/>
+</svg>

@@ -6,11 +6,14 @@ import { PROCESS_STEPS } from "@/data/process";
 export function ProcessSection() {
   return (
     <Section id="process" aria-label="Process">
-      <div className="paper-panel rounded-[22px] px-5 py-7 sm:px-7 sm:py-8">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <h2 className="font-serif text-[clamp(2rem,4vw,2.85rem)] leading-none tracking-[-0.02em]">Creative Process</h2>
-          <p className="font-hand text-[26px] text-ink-2">from idea to launch</p>
+      <div className="section-card relative">
+        <span className="section-braces">{'// process'}</span>
+        <div className="section-label">
+          <h2>Creative Process</h2>
+          <small>WORKFLOW</small>
         </div>
+
+        <p className="mb-6 mt-[-6px] font-hand text-[26px] text-ink-2">from idea to launch</p>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {PROCESS_STEPS.map((step, index) => (
@@ -20,7 +23,7 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.35, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl border border-line bg-paper-3 px-4 py-5"
+              className="relative rounded-2xl border border-line bg-paper px-4 py-5"
             >
               <div className="mb-3 flex items-center justify-between">
                 <span className="font-mono text-xs text-muted">{step.number}</span>
