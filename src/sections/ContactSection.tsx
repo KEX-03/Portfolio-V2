@@ -27,7 +27,7 @@ export function ContactSection() {
           className="space-y-3"
         >
           <p className="inline-flex items-center gap-2 text-sm text-ink-2">
-            <Mail className="size-4" aria-hidden="true" /> hello@vivekrao.dev
+            <Mail className="size-4" aria-hidden="true" /> hello@viveksharma.dev
           </p>
           <p className="inline-flex items-center gap-2 text-sm text-ink-2">
             <MapPin className="size-4" aria-hidden="true" /> Based in Bangalore, India

@@ -6,7 +6,7 @@ import { fadeInUp, staggerSoft } from "@/utils/motion";
 
 const codeLines = [
   "const engineer = {",
-  "  name: 'Vivek Rao',",
+  "  name: 'Vivek Sharma',",
   "  role: 'Frontend Engineer',",
   "  stack: ['React', 'TypeScript', 'Motion'],",
   "  craft: 'clean / fast / accessible'",
@@ -24,7 +24,7 @@ export function HeroSection() {
     >
       <motion.div variants={staggerSoft} initial="initial" animate="animate" className="relative">
         <motion.p variants={fadeInUp} className="inline-flex items-center gap-2 font-hand text-[26px] text-ink-2 sm:text-[32px]">
-          Hi, I am Vivek
+          Hi, I am Vivek Sharma
           <span aria-hidden="true" className="inline-block origin-[70%_70%] animate-[wave_2.6s_ease-in-out_infinite]">
             o/
           </span>
