@@ -6,7 +6,7 @@ export function FooterSection() {
         <span className="font-mono">Now building something with Framer Motion</span>
         <a
           href="#home"
-          className="font-mono underline underline-offset-4 transition-colors hover:text-accent-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep"
+          className="self-start font-mono underline underline-offset-4 transition-colors hover:text-accent-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep sm:self-auto"
         >
           Back to top
         </a>
