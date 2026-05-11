@@ -1,4 +1,5 @@
 import { Section } from "@/components/layout/Section";
+import { FeaturedProjectsSection } from "@/sections/FeaturedProjectsSection";
 import { HeroSection } from "@/sections/HeroSection";
 import { TechStackSection } from "@/sections/TechStackSection";
 
@@ -12,9 +13,8 @@ export function HomePage() {
       <Section id="about" aria-label="About section placeholder">
         <div className={placeholderSectionClass} />
       </Section>
-      <Section id="projects" aria-label="Projects section placeholder">
-        <div className={placeholderSectionClass} />
-      </Section>
+
+      <FeaturedProjectsSection />
 
       <TechStackSection />
 
