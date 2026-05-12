@@ -17,7 +17,7 @@
   --radius-panel: 1.125rem;
   --radius-card: 1rem;
   --radius-control: 0.75rem;
-  --space-section-y: clamp(3rem, 7vw, 5rem);
+  --space-section-y: clamp(2.25rem, 4.8vw, 3.75rem);
 }
 
 @theme inline {
@@ -288,7 +288,7 @@ body::before {
 
 @media (min-width: 120rem) {
   :root {
-    --space-section-y: clamp(4.5rem, 6vw, 7rem);
+    --space-section-y: clamp(3rem, 4.5vw, 4.75rem);
   }
 
   .section-card {
