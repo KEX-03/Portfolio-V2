@@ -13,9 +13,9 @@ export function ProcessSection() {
           <small>WORKFLOW</small>
         </div>
 
-        <p className="mb-6 mt-[-6px] font-hand text-[26px] text-ink-2">from idea to launch</p>
+        <p className="mb-6 mt-[-6px] font-hand text-[26px] text-ink-2 3xl:text-[30px]">from idea to launch</p>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 2xl:gap-5 3xl:gap-6">
           {PROCESS_STEPS.map((step, index) => (
             <motion.article
               key={step.number}
@@ -23,14 +23,14 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.35, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl border border-line bg-paper px-4 py-5"
+              className="relative rounded-2xl border border-line bg-paper px-4 py-5 3xl:px-5 3xl:py-6"
             >
               <div className="mb-3 flex items-center justify-between">
                 <span className="font-mono text-xs text-muted">{step.number}</span>
                 {index < PROCESS_STEPS.length - 1 ? <ArrowRight className="size-4 text-ink-2" aria-hidden="true" /> : null}
               </div>
-              <h3 className="font-serif text-[28px] leading-none tracking-[-0.02em]">{step.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-ink-2">{step.description}</p>
+              <h3 className="font-serif text-[28px] leading-none tracking-[-0.02em] 3xl:text-[32px]">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-2 3xl:text-[15px]">{step.description}</p>
             </motion.article>
           ))}
         </div>

@@ -20,7 +20,7 @@ export function HeroSection() {
     <section
       id="home"
       aria-label="Hero"
-      className="relative grid gap-10 overflow-x-clip pb-8 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pt-14"
+      className="relative grid gap-10 overflow-x-clip pb-8 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pt-14 2xl:grid-cols-[1.08fr_0.92fr] 2xl:gap-16 3xl:gap-20"
     >
       <motion.div variants={staggerSoft} initial="initial" animate="animate" className="relative">
         <motion.p variants={fadeInUp} className="inline-flex items-center gap-2 font-hand text-[26px] text-ink-2 sm:text-[32px]">
@@ -32,7 +32,7 @@ export function HeroSection() {
 
         <motion.h1
           variants={fadeInUp}
-          className="mt-2 max-w-[13ch] font-serif text-[clamp(3rem,10vw,7.75rem)] leading-[0.92] tracking-[-0.025em]"
+          className="mt-2 max-w-[13ch] font-serif text-[clamp(3rem,10vw,7.75rem)] leading-[0.92] tracking-[-0.025em] 3xl:text-[clamp(4.25rem,8vw,9rem)]"
         >
           Crafting <span className="hero-highlight">cinematic</span> digital <span className="hero-highlight">stories</span>
         </motion.h1>
@@ -46,7 +46,7 @@ export function HeroSection() {
           <path className="hero-scribble" d="M4 24 C 30 10, 54 45, 80 26 S 126 12, 156 30" />
         </motion.svg>
 
-        <motion.p variants={fadeInUp} className="mt-5 max-w-xl font-mono text-sm leading-7 text-ink-2">
+        <motion.p variants={fadeInUp} className="mt-5 max-w-xl font-mono text-sm leading-7 text-ink-2 3xl:max-w-[58ch] 3xl:text-[15px]">
           Frontend engineer focused on handcrafted interfaces, strong visual hierarchy, and thoughtful
           micro-interactions that feel calm, tactile, and memorable.
         </motion.p>
@@ -61,7 +61,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-        className="relative mx-auto h-[430px] w-full max-w-[420px] sm:h-[520px]"
+        className="relative mx-auto h-[430px] w-full max-w-[420px] sm:h-[520px] 3xl:h-[600px] 3xl:max-w-[500px]"
       >
         <motion.div
           animate={reduceMotion ? undefined : { y: [0, -8, 0], rotate: [2, 1.2, 2] }}

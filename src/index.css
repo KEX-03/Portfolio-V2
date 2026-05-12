@@ -44,6 +44,8 @@
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64rem;
   --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 120rem;
 }
 
 * {
@@ -280,6 +282,22 @@ body::before {
   box-shadow: var(--shadow-soft);
   padding: 1.75rem;
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: 640px;
+}
+
+@media (min-width: 120rem) {
+  :root {
+    --space-section-y: clamp(4.5rem, 6vw, 7rem);
+  }
+
+  .section-card {
+    padding: 2.25rem;
+  }
+
+  .section-label h2 {
+    font-size: clamp(2.2rem, 2.6vw, 3.2rem);
+  }
 }
 
 .section-label {

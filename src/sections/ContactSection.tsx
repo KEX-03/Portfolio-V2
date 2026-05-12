@@ -18,9 +18,9 @@ export function ContactSection() {
           <small>REACH OUT</small>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr_auto] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr_auto] lg:items-start 2xl:grid-cols-[1.2fr_1fr_auto] 2xl:gap-8 3xl:grid-cols-[1.25fr_1fr_auto] 3xl:gap-10">
           <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }}>
-            <p className="max-w-[44ch] text-sm leading-7 text-ink-2">
+            <p className="max-w-[44ch] text-sm leading-7 text-ink-2 3xl:max-w-[52ch] 3xl:text-[15px]">
               Have a role to fill, a product to shape, or just want to say hello? I read every message.
             </p>
           </motion.div>
@@ -30,7 +30,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ delay: 0.06 }}
-            className="space-y-3"
+            className="space-y-3 3xl:space-y-4"
           >
             <p className="inline-flex items-center gap-2 text-sm text-ink-2">
               <Mail className="size-4" aria-hidden="true" /> hello@viveksharma.dev
@@ -62,7 +62,7 @@ export function ContactSection() {
                 );
               })}
             </div>
-            <p className="-rotate-2 font-hand text-[24px] leading-tight text-ink-2">Great ideas start with a message.</p>
+            <p className="-rotate-2 font-hand text-[24px] leading-tight text-ink-2 3xl:text-[28px]">Great ideas start with a message.</p>
           </motion.div>
         </div>
       </div>

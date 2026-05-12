@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 
 const items = [
@@ -10,11 +11,14 @@ const items = [
 ];
 
 export function MarqueeBandSection() {
+  const reduceMotion = useReducedMotion();
   const loopItems = [...items, ...items];
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (reduceMotion) return;
+
     const wrap = wrapRef.current;
     const track = trackRef.current;
     if (!wrap || !track) return;
@@ -25,12 +29,15 @@ export function MarqueeBandSection() {
     let speed = 0.09;
     let targetSpeed = 0.09;
     let halfWidth = track.scrollWidth / 2;
+    let running = true;
 
     const measure = () => {
       halfWidth = track.scrollWidth / 2;
     };
 
     const loop = (now: number) => {
+      if (!running) return;
+
       const dt = now - last;
       last = now;
 
@@ -53,20 +60,47 @@ export function MarqueeBandSection() {
       targetSpeed = 0.09;
     };
 
+    const onVisibilityChange = () => {
+      running = document.visibilityState === "visible";
+      if (running) {
+        last = performance.now();
+        frame = requestAnimationFrame(loop);
+      } else {
+        cancelAnimationFrame(frame);
+      }
+    };
+
     measure();
-    frame = requestAnimationFrame(loop);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        running = entry.isIntersecting && document.visibilityState === "visible";
+        if (running) {
+          last = performance.now();
+          frame = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(frame);
+        }
+      },
+      { threshold: 0.05 },
+    );
+
+    observer.observe(wrap);
 
     wrap.addEventListener("mouseenter", enter);
     wrap.addEventListener("mouseleave", leave);
     window.addEventListener("resize", measure);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(frame);
       wrap.removeEventListener("mouseenter", enter);
       wrap.removeEventListener("mouseleave", leave);
       window.removeEventListener("resize", measure);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <Section aria-label="Marquee highlights" className="!py-7 sm:!py-9">

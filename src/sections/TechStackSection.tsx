@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 import { TECH_STACK } from "@/data/techStack";
 
 export function TechStackSection() {
+  const reduceMotion = useReducedMotion();
   const loopStack = [...TECH_STACK, ...TECH_STACK];
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (reduceMotion) return;
+
     const wrap = wrapRef.current;
     const track = trackRef.current;
     if (!wrap || !track) return;
@@ -19,12 +22,15 @@ export function TechStackSection() {
     let speed = 0.07;
     let targetSpeed = 0.07;
     let halfWidth = track.scrollWidth / 2;
+    let running = true;
 
     const measure = () => {
       halfWidth = track.scrollWidth / 2;
     };
 
     const loop = (now: number) => {
+      if (!running) return;
+
       const dt = now - last;
       last = now;
 
@@ -47,20 +53,47 @@ export function TechStackSection() {
       targetSpeed = 0.07;
     };
 
+    const onVisibilityChange = () => {
+      running = document.visibilityState === "visible";
+      if (running) {
+        last = performance.now();
+        frame = requestAnimationFrame(loop);
+      } else {
+        cancelAnimationFrame(frame);
+      }
+    };
+
     measure();
-    frame = requestAnimationFrame(loop);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        running = entry.isIntersecting && document.visibilityState === "visible";
+        if (running) {
+          last = performance.now();
+          frame = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(frame);
+        }
+      },
+      { threshold: 0.05 },
+    );
+
+    observer.observe(wrap);
 
     wrap.addEventListener("mouseenter", enter);
     wrap.addEventListener("mouseleave", leave);
     window.addEventListener("resize", measure);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(frame);
       wrap.removeEventListener("mouseenter", enter);
       wrap.removeEventListener("mouseleave", leave);
       window.removeEventListener("resize", measure);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <Section id="skills" aria-label="Tech stack">
