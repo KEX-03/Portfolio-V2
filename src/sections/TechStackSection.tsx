@@ -120,7 +120,7 @@ export function TechStackSection() {
                   style={{ backgroundColor: tech.bg, color: tech.fg ?? "#ffffff" }}
                   aria-hidden="true"
                 >
-                  {tech.label}
+                  <img src={tech.icon} alt={`${tech.name} icon`} className="size-6 object-contain" loading="lazy" />
                 </div>
                 <p className="mt-3 text-center font-mono text-xs text-ink-2">{tech.name}</p>
               </motion.article>
