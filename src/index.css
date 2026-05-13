@@ -207,9 +207,13 @@ body::before {
   gap: 2.7rem;
 }
 
-.marquee-star {
-  color: var(--accent);
-  font-size: 1.3rem;
+.marquee-separator {
+  display: inline-block;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--paper) 72%, var(--accent) 28%);
+  opacity: 0.9;
 }
 
 .tech-marquee {

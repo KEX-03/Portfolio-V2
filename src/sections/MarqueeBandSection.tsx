@@ -109,7 +109,7 @@ export function MarqueeBandSection() {
           {loopItems.map((item, index) => (
             <span key={`${item}-${index}`} className="marquee-item">
               {item}
-              <span className="marquee-star">*</span>
+              <span className="marquee-separator" aria-hidden="true" />
             </span>
           ))}
         </div>

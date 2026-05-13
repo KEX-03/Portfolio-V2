@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { Code2 } from "lucide-react";
+import { Code2, Sparkles } from "lucide-react";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { SecondaryButton } from "@/components/ui/SecondaryButton";
 import { fadeInUp, staggerSoft } from "@/utils/motion";
@@ -26,13 +26,13 @@ export function HeroSection() {
         <motion.p variants={fadeInUp} className="inline-flex items-center gap-2 font-hand text-[26px] text-ink-2 sm:text-[32px]">
           Hi, I am Vivek Sharma
           <span aria-hidden="true" className="inline-block origin-[70%_70%] animate-[wave_2.6s_ease-in-out_infinite]">
-            o/
+            👋
           </span>
         </motion.p>
 
         <motion.h1
           variants={fadeInUp}
-          className="mt-2 max-w-[13ch] font-serif text-[clamp(3rem,10vw,7.75rem)] leading-[0.92] tracking-[-0.025em] 3xl:text-[clamp(4.25rem,8vw,9rem)]"
+          className="mt-2 max-w-[13ch] font-hand text-[clamp(3rem,10vw,7.75rem)] leading-[0.9] tracking-[-0.012em] 3xl:text-[clamp(4.25rem,8vw,9rem)]"
         >
           Crafting <span className="hero-highlight">cinematic</span> digital <span className="hero-highlight">stories</span>
         </motion.h1>
@@ -71,9 +71,10 @@ export function HeroSection() {
           <span className="absolute -left-3 -top-6 grid size-[64px] place-content-center rounded-full bg-accent-deep font-mono text-base font-bold text-white shadow-[0_14px_24px_-10px_color-mix(in_oklab,var(--accent-deep)_70%,transparent)] sm:-left-4 sm:-top-7 sm:size-[78px] sm:text-lg">
             01
           </span>
-          <span className="absolute -right-1 -top-6 font-serif text-3xl text-ink animate-[twinkle_2.2s_ease-in-out_infinite]">
-            *
-          </span>
+          <Sparkles
+            className="absolute -right-1 -top-6 size-7 text-ink animate-[twinkle_2.2s_ease-in-out_infinite]"
+            aria-hidden="true"
+          />
           <span className="absolute -left-1 top-[-10px] h-[22px] w-[74px] -rotate-[6deg] bg-tape/85 sm:w-[88px]" />
           <span className="absolute right-8 top-[-8px] h-[22px] w-[74px] rotate-[8deg] bg-[#e8c7d4]/85 sm:right-12 sm:w-[88px]" />
 
@@ -90,7 +91,11 @@ export function HeroSection() {
           transition={reduceMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
           className="absolute bottom-16 left-0 w-[min(92%,320px)] -rotate-2 rounded-[10px] bg-[#1c1a16] px-4 pb-4 pt-7 font-mono text-[12px] leading-6 text-[#e8e1cb] shadow-[0_18px_28px_-14px_rgba(0,0,0,0.6)] sm:bottom-20 sm:w-[min(90%,360px)] sm:-rotate-3 sm:text-[12.5px] sm:leading-7"
         >
-          <div className="absolute left-3 top-2 text-[9px] tracking-[0.25em] text-[#888]">o o o</div>
+          <div className="absolute left-3 top-2 flex items-center gap-1.5" aria-hidden="true">
+            <span className="block size-1.5 rounded-full bg-[#888]" />
+            <span className="block size-1.5 rounded-full bg-[#888]" />
+            <span className="block size-1.5 rounded-full bg-[#888]" />
+          </div>
           <div className="mb-2 inline-flex items-center gap-2 text-[#8ab4ff]">
             <Code2 className="size-3.5" />
             <span>hero.tsx</span>
