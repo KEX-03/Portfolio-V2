@@ -67,7 +67,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <motion.article
       ref={cardRef}
-      whileHover={{ y: -8 }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       onMouseMove={handleMove}
       onMouseLeave={resetTilt}
