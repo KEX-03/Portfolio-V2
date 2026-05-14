@@ -1,5 +1,6 @@
 import { PARITY_SECTION_IDS } from "@/parity/constants";
 import { Phase3NavHero } from "@/parity/Phase3NavHero";
+import { Phase4BandTech } from "@/parity/Phase4BandTech";
 
 function PlaceholderSection({ id }: { id: string }) {
   return (
@@ -18,7 +19,8 @@ export function Phase2Foundation() {
 
       <main className="page">
         <Phase3NavHero />
-        {PARITY_SECTION_IDS.filter((id) => id !== "home").map((id) => (
+        <Phase4BandTech />
+        {PARITY_SECTION_IDS.filter((id) => id !== "home" && id !== "skills").map((id) => (
           <PlaceholderSection key={id} id={id} />
         ))}
       </main>
