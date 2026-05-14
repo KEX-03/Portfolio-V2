@@ -154,6 +154,23 @@ body::before {
   transform: rotate(-1deg);
 }
 
+.hero-highlight-animate::before {
+  transform-origin: left center;
+  animation: highlight-swipe 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--hl-delay, 0s);
+}
+
+@keyframes highlight-swipe {
+  from {
+    transform: rotate(-1deg) scaleX(0);
+    opacity: 0.35;
+  }
+  to {
+    transform: rotate(-1deg) scaleX(1);
+    opacity: 1;
+  }
+}
+
 .hero-scribble {
   fill: none;
   stroke: var(--ink);

@@ -34,7 +34,14 @@ export function HeroSection() {
           variants={fadeInUp}
           className="mt-2 max-w-[13ch] font-hand text-[clamp(3rem,10vw,7.75rem)] leading-[0.9] tracking-[-0.012em] 3xl:text-[clamp(4.25rem,8vw,9rem)]"
         >
-          Crafting <span className="hero-highlight">cinematic</span> digital <span className="hero-highlight">stories</span>
+          Crafting{" "}
+          <span className="hero-highlight hero-highlight-animate" style={{ ["--hl-delay" as string]: "0.2s" }}>
+            cinematic
+          </span>{" "}
+          digital{" "}
+          <span className="hero-highlight hero-highlight-animate" style={{ ["--hl-delay" as string]: "0.5s" }}>
+            stories
+          </span>
         </motion.h1>
 
         <motion.svg
