@@ -156,7 +156,7 @@ export function Phase3NavHero() {
             </span>
           </div>
           <p className="blurb">
-            I build interfaces that feel fast and look considered - from messy whiteboard sketches all the way to production. Strong opinions about motion, accessibility,
+            I build interfaces that feel fast and look considered — from messy whiteboard sketches all the way to production. Strong opinions about motion, accessibility,
             and the boring stuff that makes things actually work.
           </p>
           <div className="hero-cta">

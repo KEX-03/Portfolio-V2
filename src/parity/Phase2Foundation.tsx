@@ -1,17 +1,8 @@
-import { PARITY_SECTION_IDS } from "@/parity/constants";
 import { Phase3NavHero } from "@/parity/Phase3NavHero";
 import { Phase4BandTech } from "@/parity/Phase4BandTech";
 import { Phase5Projects } from "@/parity/Phase5Projects";
 import { Phase6LowerSections } from "@/parity/Phase6LowerSections";
 import { usePhase7Behaviors } from "@/parity/usePhase7Behaviors";
-
-function PlaceholderSection({ id }: { id: string }) {
-  return (
-    <section id={id} className="phase-placeholder" aria-label={`${id} placeholder`}>
-      <span>{id}</span>
-    </section>
-  );
-}
 
 export function Phase2Foundation() {
   usePhase7Behaviors();
@@ -27,9 +18,6 @@ export function Phase2Foundation() {
         <Phase4BandTech />
         <Phase5Projects />
         <Phase6LowerSections />
-        {PARITY_SECTION_IDS.filter((id) => id !== "home" && id !== "skills" && id !== "projects" && id !== "about" && id !== "process" && id !== "connect").map((id) => (
-          <PlaceholderSection key={id} id={id} />
-        ))}
       </main>
     </>
   );

@@ -1246,12 +1246,17 @@ h1.name .hl:nth-of-type(2)::before {
 }
 
 .about h3,
-.process h3,
-.connect h3 {
+.process h3 {
   font-family: var(--serif);
   font-size: 28px;
   margin: 0 0 8px;
   letter-spacing: -0.01em;
+}
+
+.connect h3 {
+  font-family: var(--serif);
+  font-size: 32px;
+  margin: 0 0 8px;
 }
 
 .about p {
@@ -1551,20 +1556,6 @@ footer .now .blip {
   }
 }
 
-.phase-placeholder {
-  min-height: 20vh;
-  border: 1px dashed color-mix(in oklab, var(--line-strong) 35%, transparent);
-  border-radius: 14px;
-  margin-bottom: 16px;
-  display: grid;
-  place-items: center;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-}
-
 @media (pointer: coarse) {
   body {
     cursor: auto;
@@ -1664,5 +1655,6 @@ footer .now .blip {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
