@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 
 const socialLinks = [
-  { label: "GitHub", href: "#", icon: Code2 },
-  { label: "LinkedIn", href: "#", icon: Briefcase },
-  { label: "Resume", href: "#", icon: FileText },
+  { label: "GitHub", href: "https://github.com/KEX-03", icon: Code2 },
+  { label: "LinkedIn", href: "https://linkedin.com/in/kex03", icon: Briefcase },
+  { label: "Resume", href: "/Resume_Vivek.pdf", icon: FileText, newTab: true },
 ];
 
 export function ContactSection() {
@@ -55,6 +55,8 @@ export function ContactSection() {
                     key={link.label}
                     href={link.href}
                     aria-label={link.label}
+                    target={link.newTab ? "_blank" : undefined}
+                    rel={link.newTab ? "noopener noreferrer" : undefined}
                     className="inline-flex size-9 items-center justify-center rounded-full border border-line bg-paper text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep"
                   >
                     <Icon className="size-4" aria-hidden="true" />
