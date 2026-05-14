@@ -145,6 +145,17 @@ body::after {
   transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
 }
 
+.cursor.hover {
+  width: 54px;
+  height: 54px;
+  border-color: #fff;
+}
+
+.cursor.click {
+  width: 20px;
+  height: 20px;
+}
+
 .cursor-dot {
   width: 5px;
   height: 5px;
@@ -1511,6 +1522,33 @@ footer .now .blip {
 .toast.show {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+.sparkle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 8800;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: spk 1s ease-out forwards;
+}
+
+@keyframes spk {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(60px) scale(1.6);
+    opacity: 0;
+  }
 }
 
 .phase-placeholder {

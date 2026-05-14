@@ -3,6 +3,7 @@ import { Phase3NavHero } from "@/parity/Phase3NavHero";
 import { Phase4BandTech } from "@/parity/Phase4BandTech";
 import { Phase5Projects } from "@/parity/Phase5Projects";
 import { Phase6LowerSections } from "@/parity/Phase6LowerSections";
+import { usePhase7Behaviors } from "@/parity/usePhase7Behaviors";
 
 function PlaceholderSection({ id }: { id: string }) {
   return (
@@ -13,6 +14,8 @@ function PlaceholderSection({ id }: { id: string }) {
 }
 
 export function Phase2Foundation() {
+  usePhase7Behaviors();
+
   return (
     <>
       <div className="progress" aria-hidden="true" />
