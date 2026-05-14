@@ -1,11 +1,11 @@
-import { Mail, MapPin, Github, Linkedin, FileBadge2 } from "lucide-react";
+import { Mail, MapPin, Code2, Briefcase, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/layout/Section";
 
 const socialLinks = [
-  { label: "GitHub", href: "#", icon: Github },
-  { label: "LinkedIn", href: "#", icon: Linkedin },
-  { label: "Resume", href: "#", icon: FileBadge2 },
+  { label: "GitHub", href: "#", icon: Code2 },
+  { label: "LinkedIn", href: "#", icon: Briefcase },
+  { label: "Resume", href: "#", icon: FileText },
 ];
 
 export function ContactSection() {
