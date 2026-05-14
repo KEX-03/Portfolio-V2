@@ -1,133 +1,55 @@
-import { useEffect, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Section } from "@/components/layout/Section";
-import { TECH_STACK } from "@/data/techStack";
+const TECHS = [
+  { name: "HTML", label: "H5", bg: "#e44d26" },
+  { name: "CSS", label: "3", bg: "#264de4" },
+  { name: "JavaScript", label: "JS", bg: "#f7df1e", fg: "#1d1a14" },
+  { name: "TypeScript", label: "TS", bg: "#2f74c0" },
+  { name: "React", label: "⚛", bg: "#1c1a16", fg: "#61dafb" },
+  { name: "Next.js", label: "N", bg: "#1d1a14" },
+  { name: "Node.js", label: "⬢", bg: "#5fa04e" },
+  { name: "Framer Motion", label: "FM", bg: "#0055ff" },
+  { name: "GraphQL", label: "◆", bg: "#e535ab" },
+  { name: "Tailwind", label: "~", bg: "#38bdf8" },
+  { name: "Figma", label: "F", bg: "#1d1a14", fg: "#ff7262" },
+  { name: "Storybook", label: "SB", bg: "#ff4785" },
+];
 
 export function TechStackSection() {
-  const reduceMotion = useReducedMotion();
-  const loopStack = [...TECH_STACK, ...TECH_STACK];
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (reduceMotion) return;
-
-    const wrap = wrapRef.current;
-    const track = trackRef.current;
-    if (!wrap || !track) return;
-
-    let frame = 0;
-    let last = performance.now();
-    let x = 0;
-    let speed = 0.07;
-    let targetSpeed = 0.07;
-    let halfWidth = track.scrollWidth / 2;
-    let running = true;
-
-    const measure = () => {
-      halfWidth = track.scrollWidth / 2;
-    };
-
-    const loop = (now: number) => {
-      if (!running) return;
-
-      const dt = now - last;
-      last = now;
-
-      speed += (targetSpeed - speed) * 0.08;
-      x -= speed * dt;
-
-      if (-x >= halfWidth) {
-        x += halfWidth;
-      }
-
-      track.style.transform = `translateX(${x}px)`;
-      frame = requestAnimationFrame(loop);
-    };
-
-    const enter = () => {
-      targetSpeed = 0.015;
-    };
-
-    const leave = () => {
-      targetSpeed = 0.07;
-    };
-
-    const onVisibilityChange = () => {
-      running = document.visibilityState === "visible";
-      if (running) {
-        last = performance.now();
-        frame = requestAnimationFrame(loop);
-      } else {
-        cancelAnimationFrame(frame);
-      }
-    };
-
-    measure();
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        running = entry.isIntersecting && document.visibilityState === "visible";
-        if (running) {
-          last = performance.now();
-          frame = requestAnimationFrame(loop);
-        } else {
-          cancelAnimationFrame(frame);
-        }
-      },
-      { threshold: 0.05 },
-    );
-
-    observer.observe(wrap);
-
-    wrap.addEventListener("mouseenter", enter);
-    wrap.addEventListener("mouseleave", leave);
-    window.addEventListener("resize", measure);
-    document.addEventListener("visibilitychange", onVisibilityChange);
-
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-      wrap.removeEventListener("mouseenter", enter);
-      wrap.removeEventListener("mouseleave", leave);
-      window.removeEventListener("resize", measure);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [reduceMotion]);
+  const doubled = [...TECHS, ...TECHS];
 
   return (
-    <Section id="skills" aria-label="Tech stack">
-      <div className="section-card relative">
-        <span className="section-braces">{"<stack />"}</span>
-        <div className="section-label">
-          <h2>Tech I Work With</h2>
-          <small>CORE STACK</small>
+    <>
+      <div className="band" aria-hidden="true">
+        <div className="mq">
+          <span>
+            Available for work <span className="star">✦</span> Frontend Engineer <span className="star">✦</span> React · TypeScript · Motion <span className="star">✦</span> Currently in Bangalore{" "}
+            <span className="star">✦</span> Let&apos;s build something <span className="star">✦</span>
+          </span>
+          <span>
+            Available for work <span className="star">✦</span> Frontend Engineer <span className="star">✦</span> React · TypeScript · Motion <span className="star">✦</span> Currently in Bangalore{" "}
+            <span className="star">✦</span> Let&apos;s build something <span className="star">✦</span>
+          </span>
         </div>
+      </div>
 
-        <div ref={wrapRef} className="tech-marquee">
-          <div ref={trackRef} className="tech-marquee-track">
-            {loopStack.map((tech, index) => (
-              <motion.article
-                key={`${tech.name}-${index}`}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.35, delay: (index % TECH_STACK.length) * 0.03, ease: [0.22, 1, 0.36, 1] }}
-                className="hover-lift-card tech-pill"
-              >
-                <div
-                  className="mx-auto flex size-12 items-center justify-center rounded-xl font-mono text-sm font-bold"
-                  style={{ backgroundColor: tech.bg, color: tech.fg ?? "#ffffff" }}
-                  aria-hidden="true"
-                >
-                  <img src={tech.icon} alt={`${tech.name} icon`} className="size-6 object-contain" loading="lazy" />
+      <section className="section-card" id="skills">
+        <span className="braces">{"{ }"}</span>
+        <div className="label">
+          <span>Tech I Work With</span>
+          <small>infinite · pause on hover</small>
+        </div>
+        <div className="marquee" aria-label="Technology stack">
+          <div className="marquee-track" id="techTrack">
+            {doubled.map((tech, index) => (
+              <div className="tech-pill" key={`${tech.name}-${index}`}>
+                <div className="glyph" style={{ background: tech.bg, color: tech.fg ?? "#ffffff" }}>
+                  {tech.label}
                 </div>
-                <p className="mt-3 text-center font-mono text-xs text-ink-2">{tech.name}</p>
-              </motion.article>
+                <div className="name">{tech.name}</div>
+              </div>
             ))}
           </div>
         </div>
-      </div>
-    </Section>
+      </section>
+    </>
   );
 }

@@ -88,7 +88,7 @@ function MidWave() {
   );
 }
 
-export function Phase5Projects() {
+export function ProjectsSection() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const currentIndexRef = useRef(PROJECTS.length);

@@ -1,7 +1,7 @@
-import { Phase2Foundation } from "@/parity/Phase2Foundation";
+import { PortfolioPage } from "@/pages/PortfolioPage";
 
 function App() {
-  return <Phase2Foundation />;
+  return <PortfolioPage />;
 }
 
 export default App;

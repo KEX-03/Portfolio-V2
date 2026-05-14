@@ -1,123 +1,207 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { Code2, Sparkles } from "lucide-react";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { SecondaryButton } from "@/components/ui/SecondaryButton";
-import { fadeInUp, staggerSoft } from "@/utils/motion";
+import { useEffect, useMemo, useState } from "react";
 
-const codeLines = [
-  "const engineer = {",
-  "  name: 'Vivek Sharma',",
-  "  role: 'Frontend Engineer',",
-  "  stack: ['React', 'TypeScript', 'Motion'],",
-  "  craft: 'clean / fast / accessible'",
-  "};",
+const NAV_ITEMS = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Process", href: "#process" },
 ];
 
+const ROLES = [
+  "React + TypeScript",
+  "design systems",
+  "tiny delightful UIs",
+  "performance work",
+  "accessibility",
+  "motion + interaction",
+];
+
+const CODE_LINES = [
+  '<span class="k">const</span> <span class="f">engineer</span> = {',
+  '  name: <span class="s">"Vivek Sharma"</span>,',
+  '  role: <span class="s">"Frontend Engineer"</span>,',
+  '  stack: [<span class="s">"React"</span>, <span class="s">"TS"</span>, <span class="s">"Motion"</span>],',
+  '  craft: <span class="s">"clean · fast · accessible"</span>,',
+  "};",
+  "",
+  '<span class="c">console</span>.<span class="f">log</span>(engineer);',
+];
+
+function useRoleRotator() {
+  const [roleText, setRoleText] = useState(ROLES[0]);
+  const [swapHidden, setSwapHidden] = useState(false);
+
+  useEffect(() => {
+    let roleIndex = 0;
+    const timer = window.setInterval(() => {
+      roleIndex = (roleIndex + 1) % ROLES.length;
+      setSwapHidden(true);
+
+      window.setTimeout(() => {
+        setRoleText(ROLES[roleIndex]);
+        setSwapHidden(false);
+      }, 260);
+    }, 2200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return { roleText, swapHidden };
+}
+
+function useTypedCode() {
+  const [typedHtml, setTypedHtml] = useState("");
+
+  useEffect(() => {
+    let lineIndex = 0;
+    let charIndex = 0;
+    let stopped = false;
+    let timer = 0;
+
+    const step = () => {
+      if (stopped || lineIndex >= CODE_LINES.length) {
+        return;
+      }
+
+      const full = CODE_LINES[lineIndex];
+      if (full[charIndex] === "<") {
+        const end = full.indexOf(">", charIndex);
+        charIndex = end + 1;
+      } else {
+        charIndex += 1;
+      }
+
+      const built = `${CODE_LINES.slice(0, lineIndex).join("\n")}${lineIndex ? "\n" : ""}${full.slice(0, charIndex)}`;
+      setTypedHtml(built);
+
+      if (charIndex >= full.length) {
+        lineIndex += 1;
+        charIndex = 0;
+        timer = window.setTimeout(step, 220);
+      } else {
+        timer = window.setTimeout(step, 18 + Math.random() * 30);
+      }
+    };
+
+    timer = window.setTimeout(step, 700);
+    return () => {
+      stopped = true;
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  return typedHtml;
+}
+
 export function HeroSection() {
-  const reduceMotion = useReducedMotion();
+  const { roleText, swapHidden } = useRoleRotator();
+  const typedHtml = useTypedCode();
+  const roleClass = useMemo(() => `swap${swapHidden ? " is-hidden" : ""}`, [swapHidden]);
 
   return (
-    <section
-      id="home"
-      aria-label="Hero"
-      className="relative grid gap-10 overflow-visible pb-8 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pt-14 2xl:grid-cols-[1.08fr_0.92fr] 2xl:gap-16 3xl:gap-20"
-    >
-      <motion.div variants={staggerSoft} initial="initial" animate="animate" className="relative">
-        <motion.p variants={fadeInUp} className="inline-flex items-center gap-2 font-hand text-[26px] text-ink-2 sm:text-[32px]">
-          Hi, I am Vivek Sharma
-          <span aria-hidden="true" className="inline-block origin-[70%_70%] animate-[wave_2.6s_ease-in-out_infinite]">
-            👋
+    <>
+      <nav className="nav" aria-label="Primary">
+        <div className="logo">
+          vs<span className="dot" />
+        </div>
+        <ul>
+          {NAV_ITEMS.map((item, index) => (
+            <li key={item.href}>
+              <a className={`link${index === 0 ? " active" : ""}`} href={item.href} data-magnet>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <span className="status" id="status">
+          <span className="pulse" /> Available · <span id="clock">--:--</span> IST
+        </span>
+        <button className="theme-btn" id="themeBtn" aria-label="Toggle theme" data-cursor="hover">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+        </button>
+        <a className="cta-dark" href="#connect" data-magnet data-cursor="hover">
+          Let's Connect
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 19 19 5" />
+            <path d="M9 5h10v10" />
+          </svg>
+        </a>
+      </nav>
+
+      <section className="hero" id="home">
+        <div>
+          <span className="hi">
+            Hi, <span className="wave-emoji">👋</span>
           </span>
-        </motion.p>
+          <h1 className="name">
+            <span className="hl">Vivek</span>
+            <br />
+            <span className="hl">Sharma</span>
+          </h1>
 
-        <motion.h1
-          variants={fadeInUp}
-          className="mt-2 max-w-[13ch] font-hand text-[clamp(3rem,10vw,7.75rem)] leading-[0.9] tracking-[-0.012em] 3xl:text-[clamp(4.25rem,8vw,9rem)]"
-        >
-          Crafting{" "}
-          <span className="hero-highlight hero-highlight-animate" style={{ ["--hl-delay" as string]: "0.2s" }}>
-            cinematic
-          </span>{" "}
-          digital{" "}
-          <span className="hero-highlight hero-highlight-animate" style={{ ["--hl-delay" as string]: "0.5s" }}>
-            stories
-          </span>
-        </motion.h1>
+          <svg className="scribble" viewBox="0 0 200 60" aria-hidden="true">
+            <path d="M5 40 C 40 5, 80 60, 120 30 S 180 20, 195 36" />
+            <path d="M150 36 l 12 -4 M150 36 l 8 8" />
+          </svg>
 
-        <motion.svg
-          variants={fadeInUp}
-          viewBox="0 0 160 60"
-          className="pointer-events-none absolute -right-4 top-[44%] hidden h-[60px] w-[120px] lg:block xl:-right-8 xl:w-[160px]"
-          aria-hidden="true"
-        >
-          <path className="hero-scribble" d="M4 24 C 30 10, 54 45, 80 26 S 126 12, 156 30" />
-        </motion.svg>
-
-        <motion.p variants={fadeInUp} className="mt-5 max-w-xl font-mono text-sm leading-7 text-ink-2 3xl:max-w-[58ch] 3xl:text-[15px]">
-          Frontend engineer focused on handcrafted interfaces, strong visual hierarchy, and thoughtful
-          micro-interactions that feel calm, tactile, and memorable.
-        </motion.p>
-
-        <motion.div variants={fadeInUp} className="mt-8 flex flex-wrap items-center gap-4 sm:gap-5">
-          <PrimaryButton type="button">See Projects</PrimaryButton>
-          <SecondaryButton type="button">About My Process</SecondaryButton>
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-        className="relative mx-auto h-[430px] w-full max-w-[420px] sm:h-[520px] 3xl:h-[600px] 3xl:max-w-[500px]"
-      >
-        <motion.div
-          animate={reduceMotion ? undefined : { y: [0, -8, 0], rotate: [2, 1.2, 2] }}
-          transition={reduceMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-0 top-4 h-[380px] w-[min(100%,340px)] rotate-[2deg] border border-line bg-white p-3.5 pb-14 shadow-[0_1px_0_rgba(60,50,30,0.05),0_30px_50px_-30px_rgba(40,30,10,0.45),0_80px_100px_-60px_rgba(40,30,10,0.3)] sm:h-[430px] sm:w-[min(100%,380px)]"
-        >
-          <span className="absolute -left-3 -top-6 grid size-[64px] place-content-center rounded-full bg-accent-deep font-mono text-base font-bold text-white shadow-[0_14px_24px_-10px_color-mix(in_oklab,var(--accent-deep)_70%,transparent)] sm:-left-4 sm:-top-7 sm:size-[78px] sm:text-lg">
-            01
-          </span>
-          <Sparkles
-            className="absolute -right-1 -top-6 size-7 text-ink animate-[twinkle_2.2s_ease-in-out_infinite]"
-            aria-hidden="true"
-          />
-          <span className="absolute -left-1 top-[-10px] h-[22px] w-[74px] -rotate-[6deg] bg-tape/85 sm:w-[88px]" />
-          <span className="absolute right-8 top-[-8px] h-[22px] w-[74px] rotate-[8deg] bg-[#e8c7d4]/85 sm:right-12 sm:w-[88px]" />
-
-          <div className="relative h-full bg-[linear-gradient(135deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_40%,rgba(0,0,0,0.5)),repeating-linear-gradient(45deg,#4a4a4a_0_6px,#2c2c2c_6px_12px)] p-4">
-            <div className="absolute inset-0 opacity-25 [background-size:18px_18px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.15)_1px,transparent_1px)]" />
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded bg-black/45 px-2 py-1 font-mono text-xs text-[#e9e3d4]">
-              [ portrait ]
-            </p>
+          <div className="role-line">
+            <span className="role">&lt;&nbsp;Frontend Engineer&nbsp;/&gt;</span>
+            <span className="div" />
+            <span className="role-rotator">
+              currently shipping <span className={roleClass}>{roleText}</span>
+            </span>
           </div>
-        </motion.div>
-
-        <motion.article
-          animate={reduceMotion ? undefined : { y: [0, -10, 0], rotate: [-3, -2.2, -3] }}
-          transition={reduceMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-          className="absolute bottom-16 left-0 w-[min(92%,320px)] -rotate-2 rounded-[10px] bg-[#1c1a16] px-4 pb-4 pt-7 font-mono text-[12px] leading-6 text-[#e8e1cb] shadow-[0_18px_28px_-14px_rgba(0,0,0,0.6)] sm:bottom-20 sm:w-[min(90%,360px)] sm:-rotate-3 sm:text-[12.5px] sm:leading-7"
-        >
-          <div className="absolute left-3 top-2 flex items-center gap-1.5" aria-hidden="true">
-            <span className="block size-1.5 rounded-full bg-[#888]" />
-            <span className="block size-1.5 rounded-full bg-[#888]" />
-            <span className="block size-1.5 rounded-full bg-[#888]" />
+          <p className="blurb">
+            I build interfaces that feel fast and look considered — from messy whiteboard sketches all the way to production. Strong opinions about motion, accessibility,
+            and the boring stuff that makes things actually work.
+          </p>
+          <div className="hero-cta">
+            <button className="btn-primary" id="ctaWork" data-magnet data-cursor="hover" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
+              View My Work
+              <span className="arr">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m13 5 7 7-7 7" />
+                </svg>
+              </span>
+            </button>
+            <button className="btn-link" type="button" data-cursor="hover">
+              Download Resume
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3v12" />
+                <path d="m7 10 5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+            </button>
           </div>
-          <div className="mb-2 inline-flex items-center gap-2 text-[#8ab4ff]">
-            <Code2 className="size-3.5" />
-            <span>hero.tsx</span>
-          </div>
-          <pre className="m-0 whitespace-pre-wrap font-mono text-inherit leading-inherit">{codeLines.join("\n")}</pre>
-        </motion.article>
+        </div>
 
-        <motion.p
-          animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
-          transition={reduceMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 right-3 -rotate-3 font-hand text-[22px] text-ink-2 sm:right-6 sm:text-[26px]"
-        >
-          it is me <span className="font-serif">v</span>
-        </motion.p>
-      </motion.div>
-    </section>
+        <div className="collage" aria-hidden="true">
+          <div className="badge-circ">
+            <span>&lt;/&gt;</span>
+          </div>
+          <div className="spark">✦</div>
+
+          <div className="photo-card">
+            <div className="tape t1" />
+            <div className="tape t2" />
+            <div className="img" />
+          </div>
+
+          <div className="code-card">
+            <div id="typed" dangerouslySetInnerHTML={{ __html: typedHtml }} />
+            <span className="caret" />
+          </div>
+
+          <div className="me-arrow">
+            <span className="a">↙</span> that&apos;s me!
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

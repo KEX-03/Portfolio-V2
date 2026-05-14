@@ -1,4 +1,4 @@
-export function Phase6LowerSections() {
+export function ContactProcessSection() {
   return (
     <>
       <section className="about-row">
