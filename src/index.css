@@ -370,6 +370,7 @@ body::before {
 
 .projects-swiper .swiper-slide {
   height: auto;
+  display: flex;
 }
 
 .projects-swiper .swiper-button-prev,

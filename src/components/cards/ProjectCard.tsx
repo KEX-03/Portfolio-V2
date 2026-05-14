@@ -72,7 +72,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onMouseMove={handleMove}
       onMouseLeave={resetTilt}
       style={{ transformStyle: "preserve-3d" }}
-      className="group rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-[box-shadow,transform] duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)] 3xl:p-4"
+      className="group flex h-full flex-col rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-[box-shadow,transform] duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)] 3xl:p-4"
     >
       <div className={`relative h-[200px] overflow-hidden rounded-xl p-4 3xl:h-[230px] ${variantClassMap[project.variant]}`}>
         <div className="absolute left-3 top-2.5 flex gap-1.5" aria-hidden="true">
@@ -92,7 +92,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
 
-      <div className="px-1.5 pb-1 pt-4">
+      <div className="flex grow flex-col px-1.5 pb-1 pt-4">
         <div className="flex items-start justify-between gap-3">
           <h4 className="font-serif text-[24px] leading-tight tracking-[-0.01em]">{project.title}</h4>
           <span className="rounded-full border border-line bg-paper-2 px-2.5 py-0.5 font-mono text-[11px] text-ink-2">
@@ -100,7 +100,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
         <p className="mt-2 text-sm text-ink-2 3xl:text-[15px]">{project.description}</p>
-        <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-2">
+        <div className="mt-auto pt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-2">
           {project.stack.map((item) => (
             <span key={`${project.title}-${item}`} className="font-mono">
               {item}
