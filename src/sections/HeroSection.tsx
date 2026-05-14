@@ -20,7 +20,7 @@ export function HeroSection() {
     <section
       id="home"
       aria-label="Hero"
-      className="relative grid gap-10 overflow-x-clip pb-8 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pt-14 2xl:grid-cols-[1.08fr_0.92fr] 2xl:gap-16 3xl:gap-20"
+      className="relative grid gap-10 overflow-visible pb-8 pt-10 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-12 lg:pt-14 2xl:grid-cols-[1.08fr_0.92fr] 2xl:gap-16 3xl:gap-20"
     >
       <motion.div variants={staggerSoft} initial="initial" animate="animate" className="relative">
         <motion.p variants={fadeInUp} className="inline-flex items-center gap-2 font-hand text-[26px] text-ink-2 sm:text-[32px]">

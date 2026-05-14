@@ -1,12 +1,7 @@
-import { MainLayout } from "@/layouts/MainLayout";
-import { HomePage } from "@/pages/HomePage";
+import { Phase2Foundation } from "@/parity/Phase2Foundation";
 
 function App() {
-  return (
-    <MainLayout>
-      <HomePage />
-    </MainLayout>
-  );
+  return <Phase2Foundation />;
 }
 
 export default App;
