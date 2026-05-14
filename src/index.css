@@ -346,9 +346,66 @@ body::before {
   gap: 1rem;
 }
 
+.projects-swiper {
+  padding: 0.25rem 0 2.25rem;
+}
+
+.projects-swiper .swiper-slide {
+  height: auto;
+}
+
+.projects-swiper .swiper-button-prev,
+.projects-swiper .swiper-button-next {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--paper-3) 86%, transparent);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+}
+
+.projects-swiper .swiper-button-prev::after,
+.projects-swiper .swiper-button-next::after {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.projects-swiper .swiper-button-prev:hover,
+.projects-swiper .swiper-button-next:hover {
+  background: color-mix(in oklab, var(--accent) 20%, var(--paper-3));
+}
+
+.projects-swiper .swiper-button-disabled {
+  opacity: 0.35;
+}
+
+.projects-swiper .swiper-pagination {
+  bottom: 0 !important;
+}
+
+.projects-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--muted) 72%, transparent);
+  opacity: 1;
+}
+
+.projects-swiper .swiper-pagination-bullet-active {
+  width: 22px;
+  border-radius: 999px;
+  background: var(--accent-deep);
+}
+
 @media (max-width: 640px) {
   .section-card {
     padding: 1.25rem;
+  }
+
+  .projects-swiper .swiper-button-prev,
+  .projects-swiper .swiper-button-next {
+    display: none;
   }
 }
 

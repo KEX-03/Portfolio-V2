@@ -1,6 +1,11 @@
 import { Section } from "@/components/layout/Section";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { FEATURED_PROJECTS } from "@/data/projects";
+import { Navigation, Pagination, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export function FeaturedProjectsSection() {
   return (
@@ -15,11 +20,26 @@ export function FeaturedProjectsSection() {
         </a>
       </div>
 
-      <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:gap-6">
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        className="projects-swiper"
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={18}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 1.2, spaceBetween: 18 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1280: { slidesPerView: 3, spaceBetween: 20 },
+          1600: { slidesPerView: 4, spaceBetween: 24 },
+        }}
+      >
         {FEATURED_PROJECTS.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <SwiperSlide key={project.title}>
+            <ProjectCard project={project} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </Section>
   );
 }
