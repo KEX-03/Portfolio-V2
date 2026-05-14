@@ -25,6 +25,7 @@ export function FeaturedProjectsSection() {
         className="projects-swiper"
         navigation
         pagination={{ clickable: true }}
+        loop
         spaceBetween={18}
         slidesPerView={1}
         breakpoints={{

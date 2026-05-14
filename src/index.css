@@ -348,6 +348,7 @@ body::before {
 
 .projects-swiper {
   padding: 0.25rem 0 2.25rem;
+  overflow: hidden;
 }
 
 .projects-swiper .swiper-slide {
@@ -356,28 +357,61 @@ body::before {
 
 .projects-swiper .swiper-button-prev,
 .projects-swiper .swiper-button-next {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: color-mix(in oklab, var(--paper-3) 86%, transparent);
+  border: 1px solid color-mix(in oklab, var(--line-strong) 24%, var(--line));
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--paper) 78%, #fff) 0%, var(--paper-3) 100%);
   color: var(--ink);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 7px 14px -10px rgba(40, 30, 10, 0.55);
+  top: 50%;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
 }
 
 .projects-swiper .swiper-button-prev::after,
 .projects-swiper .swiper-button-next::after {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.projects-swiper .swiper-button-prev {
+  transform: translateY(-50%);
+  left: 6px;
+  right: auto;
+}
+
+.projects-swiper .swiper-button-next {
+  transform: translateY(-50%);
+  right: 6px;
 }
 
 .projects-swiper .swiper-button-prev:hover,
 .projects-swiper .swiper-button-next:hover {
-  background: color-mix(in oklab, var(--accent) 20%, var(--paper-3));
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--accent) 10%, var(--paper)) 0%, var(--paper-3) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 10px 18px -16px rgba(40, 30, 10, 0.55);
+  color: color-mix(in oklab, var(--ink) 78%, var(--muted));
+}
+
+.projects-swiper .swiper-button-prev:focus-visible,
+.projects-swiper .swiper-button-next:focus-visible {
+  outline: 2px solid var(--accent-deep);
+  outline-offset: 2px;
 }
 
 .projects-swiper .swiper-button-disabled {
-  opacity: 0.35;
+  opacity: 0.25;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) inset;
 }
 
 .projects-swiper .swiper-pagination {
