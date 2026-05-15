@@ -98,17 +98,29 @@ export function HeroSection() {
   const { roleText, swapHidden } = useRoleRotator();
   const typedHtml = useTypedCode();
   const roleClass = useMemo(() => `swap${swapHidden ? " is-hidden" : ""}`, [swapHidden]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <nav className="nav" aria-label="Primary">
+      <nav className={`nav${isMenuOpen ? " is-open" : ""}`} aria-label="Primary">
         <div className="logo">
           vs<span className="dot" />
         </div>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
         <ul>
           {NAV_ITEMS.map((item, index) => (
             <li key={item.href}>
-              <a className={`link${index === 0 ? " active" : ""}`} href={item.href} data-magnet>
+              <a className={`link${index === 0 ? " active" : ""}`} href={item.href} data-magnet onClick={() => setIsMenuOpen(false)}>
                 {item.label}
               </a>
             </li>
@@ -208,7 +220,7 @@ export function HeroSection() {
           </div>
 
           <div className="me-arrow">
-            <span className="a">↙</span> that&apos;s me!
+            <span className="a">↗</span> that&apos;s me!
           </div>
         </div>
       </section>

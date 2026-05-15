@@ -92,7 +92,7 @@ export function ProjectsSection() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const currentIndexRef = useRef(PROJECTS.length);
-  const dragRef = useRef({ isDown: false, startX: 0, baseTx: 0 });
+  const dragRef = useRef({ isDown: false, startX: 0, startY: 0, baseTx: 0, axisLock: null as "x" | "y" | null });
   const autoTimerRef = useRef<number | null>(null);
 
   const tripledProjects = useMemo(() => [...PROJECTS, ...PROJECTS, ...PROJECTS], []);
@@ -153,8 +153,13 @@ export function ProjectsSection() {
     prevBtn?.addEventListener("click", onPrevClick);
 
     const onPointerDown = (e: PointerEvent) => {
+      if (!e.isPrimary) {
+        return;
+      }
       dragRef.current.isDown = true;
       dragRef.current.startX = e.clientX;
+      dragRef.current.startY = e.clientY;
+      dragRef.current.axisLock = null;
       const t = getComputedStyle(track).transform;
       const m = t.match(/matrix.*\((.+)\)/);
       dragRef.current.baseTx = m ? Number.parseFloat(m[1].split(",")[4]) : 0;
@@ -166,7 +171,19 @@ export function ProjectsSection() {
       if (!dragRef.current.isDown) {
         return;
       }
+
       const dx = e.clientX - dragRef.current.startX;
+      const dy = e.clientY - dragRef.current.startY;
+
+      if (!dragRef.current.axisLock && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+        dragRef.current.axisLock = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
+      }
+
+      if (dragRef.current.axisLock === "y") {
+        return;
+      }
+
+      e.preventDefault();
       track.style.transform = `translateX(${dragRef.current.baseTx + dx}px)`;
     };
 
@@ -175,6 +192,14 @@ export function ProjectsSection() {
         return;
       }
       dragRef.current.isDown = false;
+      const wasHorizontalDrag = dragRef.current.axisLock !== "y";
+      dragRef.current.axisLock = null;
+
+      if (!wasHorizontalDrag) {
+        snap();
+        return;
+      }
+
       const dx = e.clientX - dragRef.current.startX;
       const step = cardStep();
       const moved = Math.round(-dx / step);
