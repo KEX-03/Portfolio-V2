@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
   { label: "Process", href: "#process" },
 ];
 
@@ -95,6 +94,7 @@ function useTypedCode() {
 }
 
 export function HeroSection() {
+  const heroPortrait = "/src/assets/images/IMG_0959.jpeg";
   const { roleText, swapHidden } = useRoleRotator();
   const typedHtml = useTypedCode();
   const roleClass = useMemo(() => `swap${swapHidden ? " is-hidden" : ""}`, [swapHidden]);
@@ -214,7 +214,7 @@ export function HeroSection() {
           <div className="photo-card">
             <div className="tape t1" />
             <div className="tape t2" />
-            <div className="img" />
+            <img className="img" src={heroPortrait} alt="Vivek Sharma portrait" />
           </div>
 
           <div className="code-card">

@@ -1,3 +1,5 @@
+import avatarImage from "@/assets/images/IMG_4657.jpeg";
+
 export function ContactProcessSection() {
   return (
     <>
@@ -6,7 +8,9 @@ export function ContactProcessSection() {
           <div className="corner-tape" />
           <div className="about-avatar-wrap">
             <span className="crown">♛</span>
-            <div className="avatar" />
+            <div className="avatar">
+              <img src={avatarImage} alt="Vivek Sharma avatar" />
+            </div>
           </div>
           <div>
             <h3>About Me</h3>
