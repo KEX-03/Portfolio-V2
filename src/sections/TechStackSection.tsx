@@ -1,18 +1,19 @@
+import { Icon } from "@iconify/react";
 import { useRef } from "react";
 
 const TECHS = [
-  { name: "HTML", label: "H5", bg: "#e44d26" },
-  { name: "CSS", label: "3", bg: "#264de4" },
-  { name: "JavaScript", label: "JS", bg: "#f7df1e", fg: "#1d1a14" },
-  { name: "TypeScript", label: "TS", bg: "#2f74c0" },
-  { name: "React", label: "⚛", bg: "#1c1a16", fg: "#61dafb" },
-  { name: "Next.js", label: "N", bg: "#1d1a14" },
-  { name: "Node.js", label: "⬢", bg: "#5fa04e" },
-  { name: "Framer Motion", label: "FM", bg: "#0055ff" },
-  { name: "GraphQL", label: "◆", bg: "#e535ab" },
-  { name: "Tailwind", label: "~", bg: "#38bdf8" },
-  { name: "Figma", label: "F", bg: "#1d1a14", fg: "#ff7262" },
-  { name: "Storybook", label: "SB", bg: "#ff4785" },
+  { name: "HTML", icon: "simple-icons:html5", bg: "#e44d26" },
+  { name: "CSS", icon: "simple-icons:css", bg: "#264de4" },
+  { name: "JavaScript", icon: "simple-icons:javascript", bg: "#f7df1e", fg: "#1d1a14" },
+  { name: "TypeScript", icon: "simple-icons:typescript", bg: "#2f74c0" },
+  { name: "React", icon: "simple-icons:react", bg: "#1c1a16", fg: "#61dafb" },
+  { name: "Next.js", icon: "simple-icons:nextdotjs", bg: "#1d1a14" },
+  { name: "Node.js", icon: "simple-icons:nodedotjs", bg: "#5fa04e" },
+  { name: "Framer Motion", icon: "simple-icons:framer", bg: "#0055ff" },
+  { name: "GraphQL", icon: "simple-icons:graphql", bg: "#e535ab" },
+  { name: "Tailwind", icon: "simple-icons:tailwindcss", bg: "#38bdf8", fg: "#1d1a14" },
+  { name: "Figma", icon: "simple-icons:figma", bg: "#1d1a14", fg: "#ff7262" },
+  { name: "Storybook", icon: "simple-icons:storybook", bg: "#ff4785" },
 ];
 
 export function TechStackSection() {
@@ -46,12 +47,12 @@ export function TechStackSection() {
       >
         <div className="mq" ref={bandRef}>
           <span>
-            Available for work <span className="star">✦</span> Frontend Engineer <span className="star">✦</span> React · TypeScript · Motion <span className="star">✦</span> Currently in Bangalore{" "}
-            <span className="star">✦</span> Let&apos;s build something <span className="star">✦</span>
+            Available for work <span className="star">?</span> Frontend Engineer <span className="star">?</span> React � TypeScript � Motion <span className="star">?</span> Currently in Bangalore{" "}
+            <span className="star">?</span> Let&apos;s build something <span className="star">?</span>
           </span>
           <span>
-            Available for work <span className="star">✦</span> Frontend Engineer <span className="star">✦</span> React · TypeScript · Motion <span className="star">✦</span> Currently in Bangalore{" "}
-            <span className="star">✦</span> Let&apos;s build something <span className="star">✦</span>
+            Available for work <span className="star">?</span> Frontend Engineer <span className="star">?</span> React � TypeScript � Motion <span className="star">?</span> Currently in Bangalore{" "}
+            <span className="star">?</span> Let&apos;s build something <span className="star">?</span>
           </span>
         </div>
       </div>
@@ -60,9 +61,9 @@ export function TechStackSection() {
         <span className="braces">{"{ }"}</span>
         <div className="label">
           <span>Tech I Work With</span>
-          <small>infinite · pause on hover</small>
+          <small>infinite � slow on hover</small>
         </div>
-         <div
+        <div
           className="marquee"
           aria-label="Technology stack"
           onMouseEnter={() => tweenRate(techRef.current, 0.2, 350)}
@@ -72,7 +73,7 @@ export function TechStackSection() {
             {doubled.map((tech, index) => (
               <div className="tech-pill" key={`${tech.name}-${index}`}>
                 <div className="glyph" style={{ background: tech.bg, color: tech.fg ?? "#ffffff" }}>
-                  {tech.label}
+                  <Icon icon={tech.icon} width={24} height={24} />
                 </div>
                 <div className="name">{tech.name}</div>
               </div>
