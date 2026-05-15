@@ -1704,13 +1704,14 @@ footer .now .blip {
     margin: 32px 0 10px;
     max-width: 100%;
     overflow-x: clip;
-    transform: rotate(-1deg);
+    transform: none;
   }
 
   .band .mq {
     font-size: 26px;
     gap: 28px;
     padding: 12px 0;
+    animation: none;
   }
 
   .band .mq span {
@@ -1720,6 +1721,20 @@ footer .now .blip {
   .hero-cta {
     flex-wrap: wrap;
     gap: 14px;
+  }
+
+  .wave-emoji,
+  .badge-circ,
+  .spark,
+  .code-card .caret,
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .marquee,
+  .project,
+  .project .shot {
+    transform: none !important;
   }
 
   .collage {

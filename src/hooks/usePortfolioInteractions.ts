@@ -7,7 +7,7 @@ const IST_FORMATTER = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute
 export function usePortfolioInteractions() {
   useEffect(() => {
     const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    const isMobileViewport = window.matchMedia("(max-width: 980px)").matches;
+    const isMobileLayout = () => window.matchMedia("(max-width: 980px)").matches;
     const cursor = document.querySelector(".cursor") as HTMLElement | null;
     const dot = document.querySelector(".cursor-dot") as HTMLElement | null;
     const progress = document.querySelector(".progress") as HTMLElement | null;
@@ -87,7 +87,7 @@ export function usePortfolioInteractions() {
     const placeArrows = () => {
       document.querySelectorAll(".arrow-svg").forEach((el) => el.remove());
       if (!stepsParent) return;
-      if (isMobileViewport || isCoarsePointer) return;
+      if (isMobileLayout() || isCoarsePointer) return;
       const steps = [...stepsParent.querySelectorAll(".step")] as HTMLElement[];
       if (steps.length < 2) return;
       const pr = stepsParent.getBoundingClientRect();
@@ -105,7 +105,7 @@ export function usePortfolioInteractions() {
     };
     let io: IntersectionObserver | null = null;
     const processSection = document.getElementById("process");
-    if (processSection && !isMobileViewport && !isCoarsePointer) {
+    if (processSection && !isMobileLayout() && !isCoarsePointer) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
