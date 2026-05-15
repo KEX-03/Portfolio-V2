@@ -1790,6 +1790,7 @@ footer .now .blip {
   .menu-toggle {
     display: inline-flex;
     margin-left: auto;
+    order: 5;
     width: 44px;
     height: 44px;
     border-radius: 12px;
@@ -1801,6 +1802,19 @@ footer .now .blip {
     gap: 5px;
     cursor: pointer;
     color: var(--ink);
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .theme-btn {
+    order: 2;
+  }
+
+  .cta-dark {
+    order: 3;
+    margin-left: 0;
   }
 
   .menu-toggle span {
@@ -1846,13 +1860,9 @@ footer .now .blip {
   }
 
   .status {
-    order: 4;
+    order: 7;
     width: 100%;
     justify-content: center;
-  }
-
-  .cta-dark {
-    margin-left: auto;
   }
 }
 
