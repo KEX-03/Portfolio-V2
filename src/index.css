@@ -813,10 +813,6 @@ h1.name .hl:nth-of-type(2)::before {
   font-size: 22px;
 }
 
-.band:hover .mq {
-  animation-play-state: paused;
-}
-
 @keyframes scroll-x {
   from {
     transform: translateX(0);
@@ -869,13 +865,11 @@ h1.name .hl:nth-of-type(2)::before {
 
 .marquee {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding: 14px 0;
   mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
   transform: skewY(-1.5deg);
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
 }
 
 .marquee-track {
