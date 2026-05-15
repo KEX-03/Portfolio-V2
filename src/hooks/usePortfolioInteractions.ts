@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 const KONAMI_SEQUENCE = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+const SCROLL_SECTIONS = ["home", "about", "projects", "skills", "process"];
+const IST_FORMATTER = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" });
 
 export function usePortfolioInteractions() {
   useEffect(() => {
@@ -9,7 +11,6 @@ export function usePortfolioInteractions() {
     const progress = document.querySelector(".progress") as HTMLElement | null;
     const themeBtn = document.getElementById("themeBtn");
     const clock = document.getElementById("clock");
-    const processSection = document.getElementById("process");
     const stepsParent = document.getElementById("steps");
     const toast = document.getElementById("toast");
     const navLinks = [...document.querySelectorAll(".nav .link")] as HTMLAnchorElement[];
@@ -64,15 +65,14 @@ export function usePortfolioInteractions() {
       progress?.style.setProperty("--p", Number.isFinite(p) ? `${p}` : "0");
     };
     const tick = () => {
-      const fmt = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" });
-      if (clock) clock.textContent = fmt.format(new Date());
+      if (clock) clock.textContent = IST_FORMATTER.format(new Date());
     };
     const onThemeToggle = () => {
       const curTheme = document.documentElement.getAttribute("data-theme");
       document.documentElement.setAttribute("data-theme", curTheme === "paper" ? "night" : "paper");
     };
-    const sections = ["home", "about", "projects", "skills", "process"].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     const onScrollSpy = () => {
+      const sections = SCROLL_SECTIONS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
       const y = window.scrollY + 120;
       let active = "home";
       sections.forEach((section) => {
@@ -99,6 +99,7 @@ export function usePortfolioInteractions() {
       }
     };
     let io: IntersectionObserver | null = null;
+    const processSection = document.getElementById("process");
     if (processSection) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

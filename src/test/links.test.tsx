@@ -6,7 +6,7 @@ describe('Contact links', () => {
   it('renders actionable links and mail text', () => {
     render(<ContactSection />);
 
-    expect(screen.getByText(/hello@viveksharma.dev/i)).toBeInTheDocument();
+    expect(screen.getByText(/vvk\.shrma003@gmail\.com/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /github/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
