@@ -528,6 +528,13 @@ h1.name .hl:nth-of-type(2)::before {
   margin-top: 28px;
 }
 
+.resume-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
 .btn-primary {
   --mx: 0px;
   --my: 0px;
