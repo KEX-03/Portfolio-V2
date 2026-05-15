@@ -3,73 +3,74 @@ import { useEffect, useMemo, useRef } from "react";
 type Project = {
   title: string;
   tag: string;
-  variant: "dark" | "warm" | "mid" | "green";
-  head: string;
-  sub: string;
+  variant: "dark" | "warm" | "green" | "mid";
+  headline: string;
+  subline: string;
   cta: string;
-  blurb: string;
+  description: string;
   stack: string[];
+  url: string;
 };
 
 const PROJECTS: Project[] = [
   {
-    title: "Roamely",
+    title: "BloomLife",
     tag: "Next.js",
     variant: "dark",
-    head: "Plan better\ntravel more",
-    sub: "Curated guides, maps and tips for mindful travellers.",
-    cta: "Explore Guides",
-    blurb: "Travel platform with destination guides, itineraries, and a custom map experience.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Sanity"],
+    head: "BloomLife\nTherapist Website Homepage",
+    sub: "BloomLife is a thoughtfully designed homepage for a fictional therapy practice.",
+    cta: "Check it out",
+    blurb: "The project focuses on calm, accessible design paired with intentional motion to create a sense of safety, clarity, and professionalism.",
+    stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
   },
   {
-    title: "Maison d'Artisans",
+    title: "DeutschWelt",
+    tag: "JavaScript",
+    variant: "warm",
+    head: "Frontend Showcase\nLanguage School Website",
+    sub: "A responsive static landing page built as a frontend showcase project.",
+    cta: "Start Learning",
+    blurb: "This project was built as a showcase to demonstrate frontend fundamentals, UI polish, and scroll-based interaction handling.",
+    stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
+  },
+  {
+    title: "FinLens",
     tag: "React",
-    variant: "warm",
-    head: "Local artisans,\nglobal stories.",
-    sub: "Handmade products from independent makers.",
-    cta: "Shop Collection",
-    blurb: "E-commerce site for handmade products with a focus on storytelling.",
-    stack: ["React", "Node.js", "MongoDB", "Stripe"],
-  },
-  {
-    title: "DeepFocus",
-    tag: "Next.js",
     variant: "mid",
-    head: "Focus deeper.\nDo more.",
-    sub: "Ambient sounds to help you stay in the zone.",
-    cta: "Start Listening",
-    blurb: "Ambient productivity app with playlists, timer, and progress tracking.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Howler.js"],
+    head: "FinLens\nFinance Dashboard.",
+    sub: "A responsive, mobile-first finance dashboard.",
+    cta: "Get Started",
+    blurb: "A clean, minimal, and fully interactive personal finance dashboard built with React 18, Vite, and vanilla CSS",
+    stack: ["React 18", "Vite", "Vanilla CSS"],
   },
   {
-    title: "Larkspur",
-    tag: "SvelteKit",
+    title: "TaskFlow",
+    tag: "Node.js",
     variant: "green",
-    head: "Garden journal\nfor green thumbs.",
-    sub: "Track watering, growth, and bloom cycles.",
-    cta: "Plant Something",
-    blurb: "A calm journaling app for hobbyist gardeners with reminders and notes.",
-    stack: ["SvelteKit", "Supabase", "Drizzle", "Vercel"],
+    head: "TaskFlow\nAuth + Dashboard App",
+    sub: "A full-stack web application featuring authentication.",
+    cta: "Start Tracking",
+    blurb: "A full-stack web application featuring authentication, a task-management dashboard, and full CRUD — built with React + Node.js + MongoDB.",
+    stack: ["React","Tailwind CSS", "Node.js",  "MongoDB" ],
   },
   {
-    title: "Brevity",
-    tag: "Next.js",
+    title: "Expense Tracker",
+    tag: "JavaScript",
     variant: "warm",
-    head: "Notes that\nthink with you.",
-    sub: "AI-assisted notes with structure that emerges.",
+    head: "Expense\nTracker",
+    sub: "This is a frontend expense tracking application inspired by Splitwise.",
     cta: "Try it free",
-    blurb: "AI notes app that organizes itself as you write - search across everything.",
-    stack: ["Next.js", "tRPC", "Prisma", "OpenAI"],
+    blurb: "It is built to showcase frontend logic, state management, and clean user interaction rather than backend complexity.",
+    stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
   },
   {
-    title: "Cadence",
-    tag: "React Native",
+    title: "WireWise",
+    tag: "Next.js",
     variant: "mid",
-    head: "Run your own\nrhythm.",
-    sub: "Adaptive workout tracker for runners.",
-    cta: "Start Training",
-    blurb: "Mobile-first running coach that adapts plans to your weekly pace.",
+    head: "A Fintech\nBank Application",
+    sub: "Access and manage your account and transactions efficiently.",
+    cta: "Start Here",
+    blurb: "Built with Next.js, WireWise is a financial SaaS platform that connects to multiple bank accounts, displays transactions in real-time, allows users to transfer money to other platform users, and manages their finances altogether.",
     stack: ["React Native", "Expo", "SQLite", "Mapbox"],
   },
 ];
