@@ -22,6 +22,7 @@ const PROJECTS: Project[] = [
     cta: "Check it out",
     blurb: "The project focuses on calm, accessible design paired with intentional motion to create a sense of safety, clarity, and professionalism.",
     stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+    url: "https://bloomlife.vercel.app",
   },
   {
     title: "DeutschWelt",
@@ -32,6 +33,7 @@ const PROJECTS: Project[] = [
     cta: "Start Learning",
     blurb: "This project was built as a showcase to demonstrate frontend fundamentals, UI polish, and scroll-based interaction handling.",
     stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
+    url: "https://language-school-showcase.vercel.app",
   },
   {
     title: "FinLens",
@@ -42,6 +44,7 @@ const PROJECTS: Project[] = [
     cta: "Get Started",
     blurb: "A clean, minimal, and fully interactive personal finance dashboard built with React 18, Vite, and vanilla CSS",
     stack: ["React 18", "Vite", "Vanilla CSS"],
+    url: "https://finlens-seven.vercel.app",
   },
   {
     title: "TaskFlow",
@@ -52,6 +55,7 @@ const PROJECTS: Project[] = [
     cta: "Start Tracking",
     blurb: "A full-stack web application featuring authentication, a task-management dashboard, and full CRUD — built with React + Node.js + MongoDB.",
     stack: ["React","Tailwind CSS", "Node.js",  "MongoDB" ],
+    url: "https://taskflow-plum-one.vercel.app",
   },
   {
     title: "Expense Tracker",
@@ -62,6 +66,7 @@ const PROJECTS: Project[] = [
     cta: "Try it free",
     blurb: "It is built to showcase frontend logic, state management, and clean user interaction rather than backend complexity.",
     stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
+    url: "https://expensetracker-kex03.netlify.app",
   },
   {
     title: "WireWise",
@@ -72,6 +77,7 @@ const PROJECTS: Project[] = [
     cta: "Start Here",
     blurb: "Built with Next.js, WireWise is a financial SaaS platform that connects to multiple bank accounts, displays transactions in real-time, allows users to transfer money to other platform users, and manages their finances altogether.",
     stack: ["React Native", "Expo", "SQLite", "Mapbox"],
+    // url: string,
   },
 ];
 

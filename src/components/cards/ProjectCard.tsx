@@ -15,7 +15,7 @@ const variantClassMap: Record<ProjectItem["variant"], string> = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const cardRef = useRef<HTMLElement | null>(null);
+  const cardRef = useRef<HTMLAnchorElement | null>(null);
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   const tiltTransform = useMotionTemplate`perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -35,17 +35,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <article
+    <motion.a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Open ${project.title}`}
       ref={cardRef}
       onMouseMove={handleMove}
       onMouseLeave={resetTilt}
-      className="h-full"
+      className="block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-deep rounded-[18px]"
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      style={{ transformStyle: "preserve-3d", transform: tiltTransform }}
     >
-      <motion.div
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        style={{ transformStyle: "preserve-3d", transform: tiltTransform }}
-        className="group flex h-full flex-col rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-[box-shadow,transform] duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)] 3xl:p-4"
-      >
+      <article className="group flex h-full flex-col rounded-[18px] border border-line bg-paper-3 p-3.5 shadow-[0_1px_0_rgba(60,50,30,0.04),0_20px_30px_-28px_rgba(40,30,10,0.4)] transition-[box-shadow,transform] duration-200 hover:shadow-[0_1px_0_rgba(60,50,30,0.04),0_30px_44px_-28px_rgba(40,30,10,0.6)] 3xl:p-4">
         <div className={`relative h-[200px] overflow-hidden rounded-xl p-4 3xl:h-[230px] ${variantClassMap[project.variant]}`}>
           <div className="absolute left-3 top-2.5 flex gap-1.5" aria-hidden="true">
             <i className="block size-2.5 rounded-full bg-[#ff5f57]" />
@@ -78,17 +80,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 {item}
               </span>
             ))}
-            <a
-              href={project.url}
-              className="ml-auto inline-flex items-center gap-1 rounded-md px-1 py-0.5 text-ink transition-colors hover:text-accent-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-deep"
-              aria-label={`Open ${project.title}`}
+            <span
+              className="ml-auto inline-flex items-center gap-1 rounded-md px-1 py-0.5 text-ink transition-colors group-hover:text-accent-deep"
+              aria-hidden="true"
             >
               <ExternalLink className="size-3.5" aria-hidden="true" />
               <span className="font-mono">Open</span>
-            </a>
+            </span>
           </div>
         </div>
-      </motion.div>
-    </article>
+      </article>
+    </motion.a>
   );
 }
