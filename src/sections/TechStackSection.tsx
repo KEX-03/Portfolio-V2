@@ -47,12 +47,12 @@ export function TechStackSection() {
       >
         <div className="mq" ref={bandRef}>
           <span>
-            Available for work <span className="star">?</span> Frontend Engineer <span className="star">?</span> React · TypeScript · Motion <span className="star">?</span> Currently in Bangalore{" "}
-            <span className="star">?</span> Let&apos;s build something <span className="star">?</span>
+            Available for work <span className="star">&#10022;</span> Frontend Engineer <span className="star">&#10022;</span> React ï¿½ TypeScript ï¿½ Motion <span className="star">&#10022;</span> Currently in Bangalore{" "}
+            <span className="star">&#10022;</span> Let&apos;s build something <span className="star">&#10022;</span>
           </span>
           <span>
-            Available for work <span className="star">?</span> Frontend Engineer <span className="star">?</span> React · TypeScript · Motion <span className="star">?</span> Currently in Bangalore{" "}
-            <span className="star">?</span> Let&apos;s build something <span className="star">?</span>
+            Available for work <span className="star">&#10022;</span> Frontend Engineer <span className="star">&#10022;</span> React ï¿½ TypeScript ï¿½ Motion <span className="star">&#10022;</span> Currently in Bangalore{" "}
+            <span className="star">&#10022;</span> Let&apos;s build something <span className="star">&#10022;</span>
           </span>
         </div>
       </div>
@@ -61,7 +61,7 @@ export function TechStackSection() {
         <span className="braces">{"{ }"}</span>
         <div className="label">
           <span>Tech I Work With</span>
-          <small>infinite · slow on hover</small>
+          <small>infinite ï¿½ slow on hover</small>
         </div>
         <div
           className="marquee"
