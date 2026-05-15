@@ -94,6 +94,7 @@ export function ProjectsSection() {
   const currentIndexRef = useRef(PROJECTS.length);
   const dragRef = useRef({ isDown: false, startX: 0, startY: 0, baseTx: 0, axisLock: null as "x" | "y" | null });
   const autoTimerRef = useRef<number | null>(null);
+  const activeTiltCardRef = useRef<HTMLElement | null>(null);
 
   const tripledProjects = useMemo(() => [...PROJECTS, ...PROJECTS, ...PROJECTS], []);
 
@@ -234,8 +235,20 @@ export function ProjectsSection() {
       const target = e.target as HTMLElement | null;
       const card = target?.closest(".project") as HTMLElement | null;
       if (!card) {
+        if (activeTiltCardRef.current) {
+          activeTiltCardRef.current.style.setProperty("--rx", "0deg");
+          activeTiltCardRef.current.style.setProperty("--ry", "0deg");
+          activeTiltCardRef.current = null;
+        }
         return;
       }
+
+      if (activeTiltCardRef.current && activeTiltCardRef.current !== card) {
+        activeTiltCardRef.current.style.setProperty("--rx", "0deg");
+        activeTiltCardRef.current.style.setProperty("--ry", "0deg");
+      }
+
+      activeTiltCardRef.current = card;
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
@@ -250,6 +263,7 @@ export function ProjectsSection() {
         el.style.setProperty("--rx", "0deg");
         el.style.setProperty("--ry", "0deg");
       });
+      activeTiltCardRef.current = null;
     };
 
     carousel.addEventListener("pointerdown", onPointerDown);
