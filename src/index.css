@@ -1651,6 +1651,29 @@ footer .now .blip {
   .cursor-dot {
     display: none;
   }
+
+  .nav {
+    backdrop-filter: none;
+  }
+
+  .project,
+  .project .shot {
+    transform: none !important;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .project:hover .meta .open {
+    transform: none;
+  }
+
+  .band .mq,
+  .marquee-track,
+  .wave-emoji,
+  .spark,
+  .badge-circ,
+  .arrow-svg.show path {
+    animation: none !important;
+  }
 }
 
 @media (max-width: 980px) {
@@ -1671,6 +1694,10 @@ footer .now .blip {
   .hero {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .arrow-svg {
+    display: none;
   }
 
   .band {

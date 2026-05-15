@@ -6,6 +6,8 @@ const IST_FORMATTER = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute
 
 export function usePortfolioInteractions() {
   useEffect(() => {
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const isMobileViewport = window.matchMedia("(max-width: 980px)").matches;
     const cursor = document.querySelector(".cursor") as HTMLElement | null;
     const dot = document.querySelector(".cursor-dot") as HTMLElement | null;
     const progress = document.querySelector(".progress") as HTMLElement | null;
@@ -44,7 +46,8 @@ export function usePortfolioInteractions() {
     const magneticTargets = [...document.querySelectorAll("[data-magnet]")] as HTMLElement[];
     const magneticMoveHandlers = new Map<HTMLElement, (e: MouseEvent) => void>();
     const magneticLeaveHandlers = new Map<HTMLElement, () => void>();
-    magneticTargets.forEach((el) => {
+    if (!isCoarsePointer) {
+      magneticTargets.forEach((el) => {
       const onMove = (e: MouseEvent) => {
         const r = el.getBoundingClientRect();
         const x = e.clientX - (r.left + r.width / 2);
@@ -58,7 +61,8 @@ export function usePortfolioInteractions() {
       magneticLeaveHandlers.set(el, onLeave);
       el.addEventListener("mousemove", onMove);
       el.addEventListener("mouseleave", onLeave);
-    });
+      });
+    }
     const onScrollProgress = () => {
       const h = document.documentElement;
       const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
@@ -83,6 +87,7 @@ export function usePortfolioInteractions() {
     const placeArrows = () => {
       document.querySelectorAll(".arrow-svg").forEach((el) => el.remove());
       if (!stepsParent) return;
+      if (isMobileViewport || isCoarsePointer) return;
       const steps = [...stepsParent.querySelectorAll(".step")] as HTMLElement[];
       if (steps.length < 2) return;
       const pr = stepsParent.getBoundingClientRect();
@@ -100,7 +105,7 @@ export function usePortfolioInteractions() {
     };
     let io: IntersectionObserver | null = null;
     const processSection = document.getElementById("process");
-    if (processSection) {
+    if (processSection && !isMobileViewport && !isCoarsePointer) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -135,19 +140,23 @@ export function usePortfolioInteractions() {
         }
       } else konamiIndex = 0;
     };
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("mouseup", onMouseUp);
+    if (!isCoarsePointer) {
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mousedown", onMouseDown);
+      document.addEventListener("mouseup", onMouseUp);
+    }
     document.addEventListener("scroll", onScrollProgress, { passive: true });
     window.addEventListener("scroll", onScrollSpy, { passive: true });
     window.addEventListener("resize", placeArrows);
     document.addEventListener("keydown", onKeyDownKonami);
     themeBtn?.addEventListener("click", onThemeToggle);
-    hoverTargets.forEach((el) => {
-      el.addEventListener("mouseenter", onMouseEnterHover);
-      el.addEventListener("mouseleave", onMouseLeaveHover);
-    });
-    cursorLoop();
+    if (!isCoarsePointer) {
+      hoverTargets.forEach((el) => {
+        el.addEventListener("mouseenter", onMouseEnterHover);
+        el.addEventListener("mouseleave", onMouseLeaveHover);
+      });
+      cursorLoop();
+    }
     onScrollProgress();
     onScrollSpy();
     placeArrows();
