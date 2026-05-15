@@ -1666,8 +1666,6 @@ footer .now .blip {
     transform: none;
   }
 
-  .band .mq,
-  .marquee-track,
   .wave-emoji,
   .spark,
   .badge-circ,
@@ -1711,7 +1709,6 @@ footer .now .blip {
     font-size: 26px;
     gap: 28px;
     padding: 12px 0;
-    animation: none;
   }
 
   .band .mq span {
@@ -1726,8 +1723,7 @@ footer .now .blip {
   .wave-emoji,
   .badge-circ,
   .spark,
-  .code-card .caret,
-  .marquee-track {
+  .code-card .caret {
     animation: none !important;
   }
 
