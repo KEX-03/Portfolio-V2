@@ -125,16 +125,19 @@ export function HeroSection() {
               </a>
             </li>
           ))}
+          <li>
+            <button className="theme-btn menu-theme-btn" id="themeBtn" aria-label="Toggle theme" data-cursor="hover" onClick={() => setIsMenuOpen(false)}>
+              <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+              <span>Toggle Theme</span>
+            </button>
+          </li>
         </ul>
         <span className="status" id="status">
           <span className="pulse" /> Available · <span id="clock">--:--</span> IST
         </span>
-        <button className="theme-btn" id="themeBtn" aria-label="Toggle theme" data-cursor="hover">
-          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-          </svg>
-        </button>
         <a className="cta-dark" href="#connect" data-magnet data-cursor="hover">
           Let's Connect
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

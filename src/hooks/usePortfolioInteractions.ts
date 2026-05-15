@@ -6,7 +6,6 @@ const IST_FORMATTER = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute
 
 export function usePortfolioInteractions() {
   useEffect(() => {
-    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const isMobileLayout = () => window.matchMedia("(max-width: 980px)").matches;
     const cursor = document.querySelector(".cursor") as HTMLElement | null;
     const dot = document.querySelector(".cursor-dot") as HTMLElement | null;
@@ -46,7 +45,7 @@ export function usePortfolioInteractions() {
     const magneticTargets = [...document.querySelectorAll("[data-magnet]")] as HTMLElement[];
     const magneticMoveHandlers = new Map<HTMLElement, (e: MouseEvent) => void>();
     const magneticLeaveHandlers = new Map<HTMLElement, () => void>();
-    if (!isCoarsePointer) {
+    if (!isMobileLayout()) {
       magneticTargets.forEach((el) => {
       const onMove = (e: MouseEvent) => {
         const r = el.getBoundingClientRect();
@@ -87,7 +86,7 @@ export function usePortfolioInteractions() {
     const placeArrows = () => {
       document.querySelectorAll(".arrow-svg").forEach((el) => el.remove());
       if (!stepsParent) return;
-      if (isMobileLayout() || isCoarsePointer) return;
+      if (isMobileLayout()) return;
       const steps = [...stepsParent.querySelectorAll(".step")] as HTMLElement[];
       if (steps.length < 2) return;
       const pr = stepsParent.getBoundingClientRect();
@@ -105,7 +104,7 @@ export function usePortfolioInteractions() {
     };
     let io: IntersectionObserver | null = null;
     const processSection = document.getElementById("process");
-    if (processSection && !isMobileLayout() && !isCoarsePointer) {
+    if (processSection && !isMobileLayout()) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -140,7 +139,7 @@ export function usePortfolioInteractions() {
         }
       } else konamiIndex = 0;
     };
-    if (!isCoarsePointer) {
+    if (!isMobileLayout()) {
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mousedown", onMouseDown);
       document.addEventListener("mouseup", onMouseUp);
@@ -150,7 +149,7 @@ export function usePortfolioInteractions() {
     window.addEventListener("resize", placeArrows);
     document.addEventListener("keydown", onKeyDownKonami);
     themeBtn?.addEventListener("click", onThemeToggle);
-    if (!isCoarsePointer) {
+    if (!isMobileLayout()) {
       hoverTargets.forEach((el) => {
         el.addEventListener("mouseenter", onMouseEnterHover);
         el.addEventListener("mouseleave", onMouseLeaveHover);

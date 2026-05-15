@@ -351,7 +351,7 @@ export function ProjectsSection() {
           ))}
         </div>
       </div>
-      <div className="carousel-hint">↺ drag, scroll, or use arrow keys — it loops</div>
+      <div className="carousel-hint">↺ drag, scroll, or use arrow keys</div>
     </>
   );
 }
