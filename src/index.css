@@ -1923,6 +1923,30 @@ footer .now .blip {
     flex-basis: 88%;
   }
 
+  .project .shot {
+    height: 250px;
+    padding: 14px;
+    justify-content: flex-start;
+  }
+
+  .project .shot .bar {
+    top: 12px;
+  }
+
+  .project .shot h4 {
+    width: 92%;
+    font-size: 34px;
+    line-height: 1.02;
+    margin: 34px 0 8px;
+  }
+
+  .project .shot p {
+    width: 92%;
+    font-size: 11.5px;
+    line-height: 1.38;
+    margin: 0 0 10px;
+  }
+
   .pager button {
     width: 46px;
     height: 46px;
@@ -2063,6 +2087,21 @@ footer .now .blip {
   .process .steps {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .project .shot {
+    height: 242px;
+  }
+
+  .project .shot h4 {
+    width: 94%;
+    margin-top: 32px;
+    font-size: 30px;
+  }
+
+  .project .shot p {
+    width: 94%;
+    font-size: 11.2px;
   }
 
   .step p {
