@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 const KONAMI_SEQUENCE = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-const SCROLL_SECTIONS = ["home", "about", "projects", "skills", "process"];
 const IST_FORMATTER = new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" });
 
 export function usePortfolioInteractions() {
@@ -75,12 +74,37 @@ export function usePortfolioInteractions() {
       document.documentElement.setAttribute("data-theme", curTheme === "paper" ? "night" : "paper");
     };
     const onScrollSpy = () => {
-      const sections = SCROLL_SECTIONS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-      const y = window.scrollY + 120;
-      let active = "home";
-      sections.forEach((section) => {
-        if (section.offsetTop <= y) active = section.id;
-      });
+      const sectionIds = navLinks
+        .map((link) => link.getAttribute("href") ?? "")
+        .filter((href) => href.startsWith("#"))
+        .map((href) => href.slice(1));
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter((element): element is HTMLElement => Boolean(element));
+
+      if (sections.length === 0) {
+        return;
+      }
+
+      const viewportMiddle = window.innerHeight / 2;
+      let active = sections[0].id;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        const sectionMiddle = rect.top + rect.height / 2;
+        const distance = Math.abs(sectionMiddle - viewportMiddle);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          active = section.id;
+        }
+      }
+
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        active = sections[sections.length - 1].id;
+      }
+
       navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${active}`));
     };
     const placeArrows = () => {
