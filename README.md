@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# Portfolio V2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript portfolio built with Vite, focused on interactive UI, responsive layout, and a mobile-optimized project carousel.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19
+- TypeScript
+- Vite
+- Framer Motion
+- Iconify
+- Custom CSS (`src/index.css`)
+- Vitest + Testing Library
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Build and preview:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run build
+npm run preview
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Scripts
+
+- `npm run dev` - start local dev server
+- `npm run build` - type-check + production build
+- `npm run preview` - preview production build
+- `npm run lint` - run ESLint
+- `npm run test` - run tests once
+- `npm run test:watch` - run tests in watch mode
+
+## Project Structure
+
+```text
+src/
+  assets/
+  data/
+    projects.ts
+  hooks/
+    usePortfolioInteractions.ts
+  pages/
+    PortfolioPage.tsx
+  sections/
+    HeroSection.tsx
+    TechStackSection.tsx
+    ProjectsSection.tsx
+    ContactProcessSection.tsx
+  App.tsx
+  index.css
+  main.tsx
+```
+
+## Current App Flow
+
+- `main.tsx` mounts `App`
+- `App.tsx` handles loader shell and renders `PortfolioPage`
+- `PortfolioPage` renders:
+  - `HeroSection`
+  - `TechStackSection`
+  - `ProjectsSection`
+  - `ContactProcessSection`
+
+Global page interactions are handled in `usePortfolioInteractions.ts`.
+
+## Projects Carousel Notes
+
+`ProjectsSection` includes custom drag/swipe logic with autoplay.
+
+Current behavior includes:
+
+- smoother swipe transitions
+- shorter swipe threshold for easier card navigation
+- autoplay pause on user interaction
+- debounced autoplay resume to prevent conflict with manual swipe
+- longer autoplay interval (`8000ms`)
+
+Project card data comes from `src/data/projects.ts`.
+
+## Editing Content
+
+- Update project cards in `src/data/projects.ts`
+- Update hero nav items in `src/sections/HeroSection.tsx`
+- Update tech items in `src/sections/TechStackSection.tsx`
+- Update process/contact copy in `src/sections/ContactProcessSection.tsx`
+
+## Notes on Testing in Restricted Environments
+
+In some restricted Windows environments, Vite/Vitest may fail loading native Tailwind binaries (for example `@tailwindcss/oxide` with `EPERM`).
+
+If that happens, TypeScript validation is still useful:
+
+```bash
+npx tsc -p tsconfig.app.json --noEmit
 ```
