@@ -48,7 +48,7 @@ export function ProjectsSection() {
 
     const snap = (animated = true) => {
       const step = cardStep();
-      track.style.transition = animated ? "transform .55s cubic-bezier(.22,.7,.18,1)" : "none";
+      track.style.transition = animated ? "transform .42s cubic-bezier(.22,.7,.18,1)" : "none";
       track.style.transform = `translateX(${-currentIndexRef.current * step}px)`;
     };
 
@@ -155,7 +155,15 @@ export function ProjectsSection() {
 
       const dx = e.clientX - dragRef.current.startX;
       const step = cardStep();
-      const moved = Math.round(-dx / step);
+      const swipeThreshold = Math.max(36, step * 0.18);
+      let moved = 0;
+
+      if (dx <= -swipeThreshold) {
+        moved = 1;
+      } else if (dx >= swipeThreshold) {
+        moved = -1;
+      }
+
       currentIndexRef.current = Math.max(0, currentIndexRef.current + moved);
       snap();
       scheduleAutoResume(1800);
