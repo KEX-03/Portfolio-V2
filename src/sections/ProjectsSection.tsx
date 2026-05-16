@@ -1,85 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-
-type Project = {
-  title: string;
-  tag: string;
-  variant: "dark" | "warm" | "green" | "mid";
-  headline: string;
-  subline: string;
-  cta: string;
-  description: string;
-  stack: string[];
-  url: string;
-};
-
-const PROJECTS: Project[] = [
-  {
-    title: "BloomLife",
-    tag: "Next.js",
-    variant: "dark",
-    head: "BloomLife\nTherapist Website Homepage",
-    sub: "BloomLife is a thoughtfully designed homepage for a fictional therapy practice.",
-    cta: "Check it out",
-    blurb: "The project focuses on calm, accessible design paired with intentional motion to create a sense of safety, clarity, and professionalism.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    url: "https://bloomlife.vercel.app",
-  },
-  {
-    title: "DeutschWelt",
-    tag: "JavaScript",
-    variant: "warm",
-    head: "Frontend Showcase\nLanguage School Website",
-    sub: "A responsive static landing page built as a frontend showcase project.",
-    cta: "Start Learning",
-    blurb: "This project was built as a showcase to demonstrate frontend fundamentals, UI polish, and scroll-based interaction handling.",
-    stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
-    url: "https://language-school-showcase.vercel.app",
-  },
-  {
-    title: "FinLens",
-    tag: "React",
-    variant: "mid",
-    head: "FinLens\nFinance Dashboard.",
-    sub: "A responsive, mobile-first finance dashboard.",
-    cta: "Get Started",
-    blurb: "A clean, minimal, and fully interactive personal finance dashboard built with React 18, Vite, and vanilla CSS",
-    stack: ["React 18", "Vite", "Vanilla CSS"],
-    url: "https://finlens-seven.vercel.app",
-  },
-  {
-    title: "TaskFlow",
-    tag: "Node.js",
-    variant: "green",
-    head: "TaskFlow\nAuth + Dashboard App",
-    sub: "A full-stack web application featuring authentication.",
-    cta: "Start Tracking",
-    blurb: "A full-stack web application featuring authentication, a task-management dashboard, and full CRUD — built with React + Node.js + MongoDB.",
-    stack: ["React","Tailwind CSS", "Node.js",  "MongoDB" ],
-    url: "https://taskflow-plum-one.vercel.app",
-  },
-  {
-    title: "Expense Tracker",
-    tag: "JavaScript",
-    variant: "warm",
-    head: "Expense\nTracker",
-    sub: "This is a frontend expense tracking application inspired by Splitwise.",
-    cta: "Try it free",
-    blurb: "It is built to showcase frontend logic, state management, and clean user interaction rather than backend complexity.",
-    stack: ["HTML5", "Tailwind CSS", "Vanilla JavaScript"],
-    url: "https://expensetracker-kex03.netlify.app",
-  },
-  {
-    title: "WireWise",
-    tag: "Next.js",
-    variant: "mid",
-    head: "A Fintech\nBank Application",
-    sub: "Access and manage your account and transactions efficiently.",
-    cta: "Start Here",
-    blurb: "Built with Next.js, WireWise is a financial SaaS platform that connects to multiple bank accounts, displays transactions in real-time, allows users to transfer money to other platform users, and manages their finances altogether.",
-    stack: ["React Native", "Expo", "SQLite", "Mapbox"],
-    // url: string,
-  },
-];
+import { FEATURED_PROJECTS } from "@/data/projects";
 
 function MidWave() {
   const bars = Array.from({ length: 18 }).map((_, k) => {
@@ -96,14 +16,15 @@ function MidWave() {
 }
 
 export function ProjectsSection() {
+  const projects = FEATURED_PROJECTS;
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const currentIndexRef = useRef(PROJECTS.length);
+  const currentIndexRef = useRef(projects.length);
   const dragRef = useRef({ isDown: false, startX: 0, startY: 0, baseTx: 0, axisLock: null as "x" | "y" | null });
   const autoTimerRef = useRef<number | null>(null);
   const activeTiltCardRef = useRef<HTMLElement | null>(null);
 
-  const tripledProjects = useMemo(() => [...PROJECTS, ...PROJECTS, ...PROJECTS], []);
+  const tripledProjects = useMemo(() => [...projects, ...projects, ...projects], [projects]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -112,7 +33,7 @@ export function ProjectsSection() {
       return;
     }
 
-    const N = PROJECTS.length;
+    const N = projects.length;
 
     const cardStep = () => {
       const card = track.querySelector(".project") as HTMLElement | null;
@@ -164,6 +85,10 @@ export function ProjectsSection() {
       if (!e.isPrimary) {
         return;
       }
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("a, button")) {
+        return;
+      }
       dragRef.current.isDown = true;
       dragRef.current.startX = e.clientX;
       dragRef.current.startY = e.clientY;
@@ -188,6 +113,10 @@ export function ProjectsSection() {
       }
 
       if (dragRef.current.axisLock === "y") {
+        return;
+      }
+
+      if (dragRef.current.axisLock !== "x") {
         return;
       }
 
@@ -305,7 +234,7 @@ export function ProjectsSection() {
       carousel.removeEventListener("mouseleave", resetTilt);
       clearAuto();
     };
-  }, []);
+  }, [projects.length]);
 
   return (
     <>
@@ -315,7 +244,7 @@ export function ProjectsSection() {
         </div>
         <div className="projects-head-right">
           <a className="view-all" href="#" data-cursor="hover">
-            View all projects →
+            View all projects -&gt;
           </a>
           <div className="pager">
             <button id="prevBtn" aria-label="Previous" data-cursor="hover">
@@ -334,45 +263,67 @@ export function ProjectsSection() {
 
       <div className="carousel" id="carousel" ref={carouselRef}>
         <div className="carousel-track" id="track" ref={trackRef}>
-          {tripledProjects.map((p, idx) => (
-            <article className="project" aria-label={p.title} data-cursor="hover" key={`${p.title}-${idx}`}>
-              <div className={`shot ${p.variant}`}>
-                <div className="bar">
-                  <i />
-                  <i />
-                  <i />
+          {tripledProjects.map((p, idx) => {
+            const trimmedUrl = p.url.trim();
+            const isPlaceholder = trimmedUrl === "" || trimmedUrl === "#";
+            const resolvedUrl = isPlaceholder
+              ? "#"
+              : trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")
+                ? trimmedUrl
+                : `https://${trimmedUrl}`;
+
+            return (
+              <article className="project" aria-label={p.title} data-cursor="hover" key={`${p.title}-${idx}`}>
+                <div className={`shot ${p.variant}`}>
+                  <div className="bar">
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                  <h4 dangerouslySetInnerHTML={{ __html: p.headline.replace("\n", "<br/>") }} />
+                  <p>{p.subline}</p>
+                  <span className="pseudo-cta">{p.cta}</span>
+                  {p.variant === "mid" ? <MidWave /> : null}
                 </div>
-                <h4 dangerouslySetInnerHTML={{ __html: p.head.replace("\n", "<br/>") }} />
-                <p>{p.sub}</p>
-                <span className="pseudo-cta">{p.cta}</span>
-                {p.variant === "mid" ? <MidWave /> : null}
-              </div>
-              <div className="meta">
-                <div className="row">
-                  <h3>{p.title}</h3>
-                  <span className="tag">{p.tag}</span>
+                <div className="meta">
+                  <div className="row">
+                    <h3>{p.title}</h3>
+                    <span className="tag">{p.tag}</span>
+                  </div>
+                  <p>{p.description}</p>
+                  <div className="stack">
+                    {p.stack.map((s, stackIndex) => (
+                      <span key={`${p.title}-${s}-${stackIndex}`}>
+                        {stackIndex > 0 ? <span className="dot" /> : null}
+                        <span>{s}</span>
+                      </span>
+                    ))}
+                    <a
+                      href={resolvedUrl}
+                      className="open"
+                      data-cursor="hover"
+                      aria-label={`Open ${p.title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => {
+                        if (isPlaceholder) {
+                          event.preventDefault();
+                        }
+                      }}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17 17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-                <p>{p.blurb}</p>
-                <div className="stack">
-                  {p.stack.map((s, stackIndex) => (
-                    <span key={`${p.title}-${s}-${stackIndex}`}>
-                      {stackIndex > 0 ? <span className="dot" /> : null}
-                      <span>{s}</span>
-                    </span>
-                  ))}
-                  <a href="#" className="open" data-cursor="hover" aria-label={`Open ${p.title}`}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M7 17 17 7" />
-                      <path d="M8 7h9v9" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
-      <div className="carousel-hint">↺ drag, scroll, or use arrow keys</div>
+      <div className="carousel-hint">drag, scroll, or use arrow keys</div>
     </>
   );
 }

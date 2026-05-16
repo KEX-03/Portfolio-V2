@@ -34,16 +34,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
     rotateY.set(0);
   };
 
+  const trimmedUrl = project.url.trim();
+  const isPlaceholder = trimmedUrl === "" || trimmedUrl === "#";
+  const resolvedUrl = isPlaceholder
+    ? "#"
+    : trimmedUrl.startsWith("http://") || trimmedUrl.startsWith("https://")
+      ? trimmedUrl
+      : `https://${trimmedUrl}`;
+
   return (
     <motion.a
-      href={project.url}
+      href={resolvedUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Open ${project.title}`}
+      aria-disabled={isPlaceholder}
       ref={cardRef}
+      onClick={(event) => {
+        if (isPlaceholder) event.preventDefault();
+      }}
       onMouseMove={handleMove}
       onMouseLeave={resetTilt}
-      className="block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-deep rounded-[18px]"
+      className="block h-full rounded-[18px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-deep"
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       style={{ transformStyle: "preserve-3d", transform: tiltTransform }}
     >
