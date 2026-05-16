@@ -48,7 +48,7 @@ export function ProjectsSection() {
 
     const snap = (animated = true) => {
       const step = cardStep();
-      track.style.transition = animated ? "transform .42s cubic-bezier(.22,.7,.18,1)" : "none";
+      track.style.transition = animated ? "transform .52s cubic-bezier(.16,1,.3,1)" : "none";
       track.style.transform = `translateX(${-currentIndexRef.current * step}px)`;
     };
 
@@ -136,7 +136,7 @@ export function ProjectsSection() {
       }
 
       e.preventDefault();
-      track.style.transform = `translateX(${dragRef.current.baseTx + dx}px)`;
+      track.style.transform = `translateX(${dragRef.current.baseTx + dx * 0.9}px)`;
     };
 
     const endDrag = (e: PointerEvent) => {
@@ -197,7 +197,7 @@ export function ProjectsSection() {
     };
     const startAuto = () => {
       clearAuto();
-      autoTimerRef.current = window.setInterval(next, 5500);
+      autoTimerRef.current = window.setInterval(next, 8000);
     };
     const scheduleAutoResume = (delay = 1800) => {
       clearAutoResume();
