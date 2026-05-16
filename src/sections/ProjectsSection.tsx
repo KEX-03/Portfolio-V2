@@ -22,6 +22,7 @@ export function ProjectsSection() {
   const currentIndexRef = useRef(projects.length);
   const dragRef = useRef({ isDown: false, startX: 0, startY: 0, baseTx: 0, axisLock: null as "x" | "y" | null });
   const autoTimerRef = useRef<number | null>(null);
+  const autoResumeTimerRef = useRef<number | null>(null);
   const activeTiltCardRef = useRef<HTMLElement | null>(null);
 
   const tripledProjects = useMemo(() => [...projects, ...projects, ...projects], [projects]);
@@ -74,8 +75,18 @@ export function ProjectsSection() {
     const onTransitionEnd = () => normalize();
     track.addEventListener("transitionend", onTransitionEnd);
 
-    const onNextClick = () => next();
-    const onPrevClick = () => prev();
+    const onNextClick = () => {
+      clearAuto();
+      clearAutoResume();
+      next();
+      scheduleAutoResume(1800);
+    };
+    const onPrevClick = () => {
+      clearAuto();
+      clearAutoResume();
+      prev();
+      scheduleAutoResume(1800);
+    };
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
     nextBtn?.addEventListener("click", onNextClick);
@@ -85,8 +96,11 @@ export function ProjectsSection() {
       if (!e.isPrimary) {
         return;
       }
+      clearAuto();
+      clearAutoResume();
       const target = e.target as HTMLElement | null;
       if (target?.closest("a, button")) {
+        scheduleAutoResume(1200);
         return;
       }
       dragRef.current.isDown = true;
@@ -113,6 +127,7 @@ export function ProjectsSection() {
       }
 
       if (dragRef.current.axisLock === "y") {
+        scheduleAutoResume(1100);
         return;
       }
 
@@ -134,6 +149,7 @@ export function ProjectsSection() {
 
       if (!wasHorizontalDrag) {
         snap();
+        scheduleAutoResume(1200);
         return;
       }
 
@@ -142,6 +158,7 @@ export function ProjectsSection() {
       const moved = Math.round(-dx / step);
       currentIndexRef.current = Math.max(0, currentIndexRef.current + moved);
       snap();
+      scheduleAutoResume(1800);
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -161,10 +178,24 @@ export function ProjectsSection() {
     const clearAuto = () => {
       if (autoTimerRef.current) {
         window.clearInterval(autoTimerRef.current);
+        autoTimerRef.current = null;
+      }
+    };
+    const clearAutoResume = () => {
+      if (autoResumeTimerRef.current) {
+        window.clearTimeout(autoResumeTimerRef.current);
+        autoResumeTimerRef.current = null;
       }
     };
     const startAuto = () => {
+      clearAuto();
       autoTimerRef.current = window.setInterval(next, 5500);
+    };
+    const scheduleAutoResume = (delay = 1800) => {
+      clearAutoResume();
+      autoResumeTimerRef.current = window.setTimeout(() => {
+        startAuto();
+      }, delay);
     };
 
     const onTiltMove = (e: MouseEvent) => {
@@ -233,6 +264,7 @@ export function ProjectsSection() {
       carousel.removeEventListener("mousemove", onTiltMove);
       carousel.removeEventListener("mouseleave", resetTilt);
       clearAuto();
+      clearAutoResume();
     };
   }, [projects.length]);
 
