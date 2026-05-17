@@ -404,16 +404,12 @@ body::after {
 }
 
 .menu-theme-btn {
-  gap: 8px;
-  padding: 0;
   border-radius: 10px;
 }
 
-.menu-theme-btn span {
+.menu-theme-btn .theme-copy,
+.menu-theme-btn .theme-sep {
   display: none;
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: 14px;
 }
 
 .cta-dark {
@@ -1845,13 +1841,34 @@ footer .now .blip {
   .nav ul .menu-theme-btn {
     width: 100%;
     min-height: 44px;
-    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     padding: 8px 12px;
     border-radius: 10px;
+    border: 1px solid var(--line);
   }
 
-  .nav ul .menu-theme-btn span {
+  .nav ul .menu-theme-btn .theme-copy {
     display: inline;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+
+  .nav ul .menu-theme-btn .theme-icon-wrap {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin-left: auto;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--paper) 60%, transparent);
+    padding: 0;
   }
 
   .status {

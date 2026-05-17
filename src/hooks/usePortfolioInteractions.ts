@@ -10,6 +10,7 @@ export function usePortfolioInteractions() {
     const dot = document.querySelector(".cursor-dot") as HTMLElement | null;
     const progress = document.querySelector(".progress") as HTMLElement | null;
     const themeBtn = document.getElementById("themeBtn");
+    const themeText = document.getElementById("themeText");
     const clock = document.getElementById("clock");
     const stepsParent = document.getElementById("steps");
     const toast = document.getElementById("toast");
@@ -69,9 +70,14 @@ export function usePortfolioInteractions() {
     const tick = () => {
       if (clock) clock.textContent = IST_FORMATTER.format(new Date());
     };
+    const syncThemeLabel = () => {
+      const activeTheme = document.documentElement.getAttribute("data-theme");
+      if (themeText) themeText.textContent = `Theme: ${activeTheme === "night" ? "Dark" : "Light"}`;
+    };
     const onThemeToggle = () => {
       const curTheme = document.documentElement.getAttribute("data-theme");
       document.documentElement.setAttribute("data-theme", curTheme === "paper" ? "night" : "paper");
+      syncThemeLabel();
     };
     const onScrollSpy = () => {
       const sectionIds = navLinks
@@ -183,6 +189,7 @@ export function usePortfolioInteractions() {
     onScrollProgress();
     onScrollSpy();
     placeArrows();
+    syncThemeLabel();
     tick();
     clockTimer = window.setInterval(tick, 30000);
     return () => {
